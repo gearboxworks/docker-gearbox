@@ -5,22 +5,26 @@ test -f /build/include-me.sh && . /build/include-me.sh
 c_ok "Started."
 
 c_ok "Update packages."
-test -f /build/version-base.sh && . /build/version-base.sh
-
+if [ -f /build/version-base.sh ]
+then
+	. /build/version-base.sh
+else
+	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /build/version-base.sh
+fi
 
 case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
 		case "${GEARBOX_BASE_VERSION}" in
-			"alpine-3.3")
-				APKS="bash git rsync sudo ncurses"
+			"alpine-3.3"|"alpine-3.4"|"alpine-3.5")
+				APKS="bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
 				;;
 
-			"alpine-3.4")
-				APKS="bash git rsync sudo ncurses"
+			"alpine-3.6"|"alpine-3.7"|"alpine-3.8"|"alpine-3.9"|"alpine-3.10"|"alpine-3.11")
+				APKS="bash openrc nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
 				;;
 
 			*)
-				APKS="bash git shadow rsync sudo ncurses"
+				APKS="bash openrc nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
 				;;
 		esac
 
@@ -88,6 +92,11 @@ else
 	c_err "Error: /tmp/rootfs does not exist."
 	exit 1
 fi
+
+
+/usr/bin/ssh-keygen -A
+addgroup fuse
+addgroup gearbox fuse
 
 
 #c_ok "Installing MailHog client."

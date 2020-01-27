@@ -4,13 +4,13 @@
 	"name": "gearbox-base",
 	"version": "alpine-3.4.0",
 	"majorversion": "alpine-3.4",
-	"latest": "1",
+	"latest": "",
 	"class": "admin",
 	"network": "--network gearboxnet",
-	"ports": "-p 9970:9970",
+	"ports": "-P",
 	"volumes": "",
 	"restart": "--restart no",
-	"args": "",
+	"args": "--privileged=true",
 	"env": "VERSION"
 }
 

@@ -7,8 +7,8 @@ ARG GEARBOX_USER="gearbox"
 ARG GEARBOX_UID="1000"
 ARG GEARBOX_GROUP="gearbox"
 ARG GEARBOX_GID="1000"
-ARG GEARBOX_HTTP_PROXY="http://proxy:3128/"
-ARG GEARBOX_HTTPS_PROXY="http://proxy:3128/"
+# ARG GEARBOX_HTTP_PROXY="http://proxy:3128/"
+# ARG GEARBOX_HTTPS_PROXY="http://proxy:3128/"
 
 ENV GEARBOX_BASE_VERSION $GEARBOX_CONTAINER_VERSION
 ENV GEARBOX_CONTAINER_NAME $GEARBOX_CONTAINER_NAME
@@ -23,10 +23,11 @@ ENV https_proxy $GEARBOX_HTTP_PROXY
 COPY build /build
 COPY gearbox.json /build/gearbox.json
 
-RUN echo "GEARBOX_BASE_VERSION=$GEARBOX_CONTAINER_VERSION; export GEARBOX_BASE_VERSION" > /build/version-base.sh && /bin/sh /build/build-base.sh
+RUN /bin/sh /build/build-base.sh
 
 WORKDIR /project
-EXPOSE 9970
+EXPOSE 9970 22
 USER root
 
-CMD	[ "/bin/bash", "-l" ]
+# CMD [ "/usr/sbin/sshd", ";", "/bin/bash", "-l" ]
+CMD [ "/sbin/init" ]

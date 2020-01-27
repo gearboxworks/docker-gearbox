@@ -1,0 +1,16 @@
+{
+	"state": "production",
+	"organization": "gearboxworks",
+	"name": "gearbox-base",
+	"version": "alpine-3.10.0",
+	"majorversion": "alpine-3.10",
+	"latest": "1",
+	"class": "admin",
+	"network": "--network gearboxnet",
+	"ports": "-P",
+	"volumes": "",
+	"restart": "--restart no",
+	"args": "--privileged=true",
+	"env": "VERSION"
+}
+
