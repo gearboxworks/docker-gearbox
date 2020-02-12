@@ -274,6 +274,7 @@ release-real: build
 ifneq ($(SKIP),yes)
 	# @make clean-base
 	# @make build-base
+	@make stop
 	@make clean
 	@make build
 	@make test
@@ -329,9 +330,13 @@ test-real:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
 
 ifneq ($(SKIP),yes)
-	@echo "Unit tests not defined for this container."
-	@# make -k stop; make -k rm
-	@# make -k clean; make -k build; make -k create; make -k start
+	@echo "Running unit tests for container."
+	#@echo "Unit tests not defined for this container."
+	-@make -k stop
+	-@make -k rm
+	@make create
+	@make start
+	@make test-ssh
 endif
 
 
@@ -340,42 +345,50 @@ endif
 
 create:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker create --name $(CONTAINER_NAME) $(RESTART)  $(NETWORK) $(PORTS) $(ARGS) $(VOLUMES) $(IMAGE_NAME):$(VERSION)
 
 
 ################################################################################
 shell:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker run --rm --name $(CONTAINER_NAME)-shell -i -t $(NETWORK) $(PORTS) $(ARGS) $(VOLUMES) $(IMAGE_NAME):$(VERSION) /bin/bash -l
+
+
+################################################################################
+test-ssh:
+	@make check-config BUILD_TYPE=$(BUILD_TYPE)
+	$(eval PORT := $(shell docker port $(CONTAINER_NAME) 22/tcp | sed 's/0.0.0.0://'))
+	ssh -p $(PORT) gearbox@localhost /etc/gearbox/unit-tests/run.sh
+
+
+################################################################################
+ssh:
+	@make check-config BUILD_TYPE=$(BUILD_TYPE)
+	$(eval PORT := $(shell docker port $(CONTAINER_NAME) 22/tcp | sed 's/0.0.0.0://'))
+	ssh -p $(PORT) gearbox@localhost
 
 
 ################################################################################
 run:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker run --rm --name $(CONTAINER_NAME) $(NETWORK) $(PORTS) $(ARGS) $(VOLUMES) $(IMAGE_NAME):$(VERSION)
 
 
 ################################################################################
 start:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker start $(CONTAINER_NAME)
 
 
 ################################################################################
 stop:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker stop $(CONTAINER_NAME)
 
 
 ################################################################################
 rm:
 	@make check-config BUILD_TYPE=$(BUILD_TYPE)
-
 	docker container rm -f $(CONTAINER_NAME)
 
 

@@ -26,8 +26,7 @@ COPY gearbox.json /build/gearbox.json
 RUN /bin/sh /build/build-base.sh
 
 WORKDIR /project
-EXPOSE 9970 22
+EXPOSE 22 9970
 USER root
 
-# CMD [ "/usr/sbin/sshd", ";", "/bin/bash", "-l" ]
-CMD [ "/sbin/init" ]
+CMD ["/init"]

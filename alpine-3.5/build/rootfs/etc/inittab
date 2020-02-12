@@ -6,9 +6,9 @@
 
 # Set up a couple of getty's
 # tty1::respawn:/sbin/getty 38400 tty1
-::respawn:/root/bin/StartGearshift.sh
-::respawn:/usr/sbin/sshd -D
-::once:chgrp fuse /dev/fuse
+#::respawn:/root/bin/StartGearshift.sh
+#::respawn:/usr/sbin/sshd -D
+#::once:chgrp fuse /dev/fuse
 
 # Stuff to do for the 3-finger salute
 ::ctrlaltdel:/sbin/reboot

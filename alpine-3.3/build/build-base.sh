@@ -16,15 +16,18 @@ case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
 		case "${GEARBOX_BASE_VERSION}" in
 			"alpine-3.3"|"alpine-3.4"|"alpine-3.5")
-				APKS="bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
+				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
+				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
 				;;
 
 			"alpine-3.6"|"alpine-3.7"|"alpine-3.8"|"alpine-3.9"|"alpine-3.10"|"alpine-3.11")
-				APKS="bash openrc nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
+				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
+				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
 				;;
 
 			*)
-				APKS="bash openrc nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
+				# APKS="tini bash openrc nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
+				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses"
 				;;
 		esac
 
@@ -33,7 +36,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		;;
 
 	"debian-"*)
-		DEBS="bash git rsync sudo wget"
+		DEBS="bash git rsync sudo wget s6 nfs-common ssh fuse libnfs-utils sshfs ssh-tools"
 		apt-get update; checkExit
 		apt-get install -y --no-install-recommends ${DEBS}; checkExit
 		find /var/lib/apt/lists -type f -delete; checkExit
@@ -71,13 +74,13 @@ PASSWD=$(grep ^gearbox /etc/passwd)
 if [ -z "${PASSWD}" ]
 then
 	c_ok "Adding gearbox user."
-	GROUPADD="$(which groupadd)"
+	GROUPADD="$(which useradd)"
 	if [ -z "${GROUPADD}" ]
 	then
 		echo 'gearbox:x:1000:1000:Gearbox user:/home/gearbox:/bin/bash' >> /etc/passwd
 		echo 'gearbox:$6$XdlAWysgxyUyxjAV$ivrS09OkFINgCUdHjUQYG68FqW/Dkyia1iB1AN2RpgqdmgGP4DtYOAj47C5xCX8pD5iOub0q6M66zBn2bX27m1:17927:0:99999:7:::' >> /etc/shadow
 	else
-		useradd -d /home/gearbox -c "Gearbox user" -u 1000 -g 1000 -N -s /bin/bash gearbox; checkExit
+		useradd -d /home/gearbox -c "Gearbox user" -u 1000 -g 1000 -N -s /bin/bash -p '$6$XdlAWysgxyUyxjAV$ivrS09OkFINgCUdHjUQYG68FqW/Dkyia1iB1AN2RpgqdmgGP4DtYOAj47C5xCX8pD5iOub0q6M66zBn2bX27m1' gearbox; checkExit
 	fi
 fi
 
