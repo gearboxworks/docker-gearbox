@@ -1,0 +1,16 @@
+{
+	"state": "production",
+	"organization": "gearboxworks",
+	"name": "gearbox-base",
+	"version": "debian-buster",
+	"majorversion": "",
+	"latest": "",
+	"class": "admin",
+	"network": "--network gearboxnet",
+	"ports": "-P",
+	"volumes": "",
+	"restart": "--restart no",
+	"args": "--privileged=true",
+	"env": "VERSION"
+}
+
