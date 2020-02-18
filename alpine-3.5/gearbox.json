@@ -2,15 +2,31 @@
 	"state": "production",
 	"organization": "gearboxworks",
 	"name": "gearbox-base",
-	"version": "alpine-3.5.0",
-	"majorversion": "alpine-3.5",
+	"maintainer": "Gearbox Team <team@gearbox.works>",
+	"version": "alpine-3.5",
+	"majorversion": "",
 	"latest": "",
-	"class": "admin",
+	"class": "system",
 	"network": "--network gearboxnet",
-	"ports": "-P",
+	"ports": [
+		"22",
+		"9970"
+	],
 	"volumes": "",
 	"restart": "--restart no",
-	"args": "--privileged=true",
-	"env": "VERSION"
+	"args": "",
+	"env": {
+		"GEARBOX_BASE_VERSION": "alpine-3.5",
+		"GEARBOX_CONTAINER_NAME": "gearbox-base",
+		"GEARBOX_CONTAINER_VERSION": "alpine-3.5",
+		"GEARBOX_USER": "gearbox",
+		"GEARBOX_UID": "1000",
+		"GEARBOX_GROUP": "gearbox",
+		"GEARBOX_GID": "1000",
+		"http_proxy": "",
+		"https_proxy": ""
+	},
+	"ref": "base",
+	"refurl": "https://gearboxworks.io/",
+	"base": "alpine:3.5"
 }
-

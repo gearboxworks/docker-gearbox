@@ -1,0 +1,4 @@
+#!/bin/bash
+
+c_info "S6 running"
+

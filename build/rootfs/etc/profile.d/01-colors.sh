@@ -1,0 +1,1 @@
+/etc/gearbox/bin/colors.sh

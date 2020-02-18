@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "GearboxGearshift - placeholder"
-while true
-do
-	# BusyBox doesn't have a "sleep infinity"
-	sleep 99999999
-done

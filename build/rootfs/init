@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -f "/etc/gearbox/bin/colors.sh" ]
+then
+	. /etc/gearbox/bin/colors.sh
+fi
+
+c_info "Starting S6 init"
+exec /bin/s6-svscan /etc/gearbox/services

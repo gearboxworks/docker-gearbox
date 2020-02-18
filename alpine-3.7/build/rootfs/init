@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "Gearbox: Starting S6 init"
-exec /bin/s6-svscan /etc/gearbox/services

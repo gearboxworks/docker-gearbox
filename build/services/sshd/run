@@ -1,0 +1,12 @@
+#!/bin/bash
+
+HOST_KEYS="$(find /etc/ssh/ -name 'ssh_host*')"
+if [ "${HOST_KEYS}" == "" ]
+then
+	c_warn "Generating missing SSH host keys..."
+	/usr/bin/ssh-keygen -A
+fi
+
+c_info "Starting SSHD init"
+exec /usr/sbin/sshd -D -e
+
