@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 HOST_KEYS="$(find /etc/ssh/ -name 'ssh_host*')"
 if [ "${HOST_KEYS}" == "" ]

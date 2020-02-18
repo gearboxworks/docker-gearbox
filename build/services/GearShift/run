@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/opt/gearbox/GearboxOS/bin:/opt/gearbox/GearboxOS/sbin:/root/go/bin:$PATH"
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 FILES="$(find /etc/gearbox/unit-tests -mindepth 2 ! -type d | sort)"
 
