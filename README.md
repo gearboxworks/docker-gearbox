@@ -5,6 +5,7 @@
 ![Gearbox alpine-3.5](https://img.shields.io/badge/Gearbox-alpine-3.5-green.svg)
 ![Gearbox alpine-3.4](https://img.shields.io/badge/Gearbox-alpine-3.4-green.svg)
 ![Gearbox alpine-3.3](https://img.shields.io/badge/Gearbox-alpine-3.3-green.svg)
+![.github/workflows/release.yml](https://github.com/gearboxworks/docker-gearbox/workflows/.github/workflows/release.yml/badge.svg)
 
 ![Gearbox](https://github.com/gearboxworks/gearbox.github.io/raw/master/Gearbox-100x.png)
 
