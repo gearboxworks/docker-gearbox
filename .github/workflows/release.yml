@@ -7,7 +7,7 @@ on:
 jobs:
   build_docker_images:
     runs-on: ubuntu-latest
-    name: Building env.GITHUB_REPOSITORY
+    name: Building Images
     env:
       SSH_KEY: ${{ secrets.SSH_KEY }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
