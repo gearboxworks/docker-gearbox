@@ -5,9 +5,9 @@ on:
     types: [published]
 
 jobs:
-  build_docker_postgreqsql:
+  build_docker_images:
     runs-on: ubuntu-latest
-    name: Building docker-postgresql
+    name: Building env.GITHUB_REPOSITORY
     env:
       SSH_KEY: ${{ secrets.SSH_KEY }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
