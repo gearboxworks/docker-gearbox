@@ -98,7 +98,8 @@ init: *.json
 .FORCE:
 %.json: .FORCE
 	@echo "Gearbox: Initialize repository."
-	@./bin/CreateRepo.sh "$@"
+	@./bin/create-build.sh "all"
+	@./bin/create-version.sh "all"
 
 
 ################################################################################
@@ -130,10 +131,15 @@ push-%:
 
 
 ################################################################################
+github:
+	@./bin/github.sh all
+
+
+################################################################################
 dockerhub:
-	@./bin/push-dockerhub.sh $(VERSION)
+	@./bin/$@.sh $(VERSION)
 dockerhub-%:
-	@./bin/push-dockerhub.sh "$*"
+	@./bin/dockerhub.sh "$*"
 
 
 ################################################################################

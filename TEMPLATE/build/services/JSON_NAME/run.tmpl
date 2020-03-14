@@ -4,12 +4,18 @@
 
 c_ok "Starting."
 
+cd /home/gearbox/projects/default
+
 GBEP="$(which ${GEARBOX_ENTRYPOINT})"
 if [ "${GBEP}" != "" ]
 then
-	${GBEP} ${GEARBOX_ARGS}
+	${GEARBOX_ENTRYPOINT_ARGS} ${GEARBOX_ARGS}
 else
 	# Add your service entry here, if no entrypoint defined in the ref container.
-	echo ""
+	GBRUN="$(which ${GEARBOX_RUN})"
+	if [ "${GBRUN}" != "" ]
+	then
+		${GBRUN} ${GEARBOX_ARGS}
+	fi
 fi
 

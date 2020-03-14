@@ -1,3 +1,5 @@
+![release](https://github.com/gearboxworks/docker-gearbox/workflows/release/badge.svg?event=release)
+
 ![Gearbox alpine-3.9](https://img.shields.io/badge/Gearbox-alpine-3.9-green.svg)
 ![Gearbox alpine-3.8](https://img.shields.io/badge/Gearbox-alpine-3.8-green.svg)
 ![Gearbox alpine-3.7](https://img.shields.io/badge/Gearbox-alpine-3.7-green.svg)

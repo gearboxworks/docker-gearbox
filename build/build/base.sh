@@ -40,6 +40,15 @@ case "${GEARBOX_BASE_VERSION}" in
 		apt-get update; checkExit
 		apt-get install -y --no-install-recommends ${DEBS}; checkExit
 		find /var/lib/apt/lists -type f -delete; checkExit
+
+		# Different path for S6 on Debian.
+		ls -1 /usr/bin/s6* | xargs -i ln -s {} /bin 2>/dev/null
+		echo ""
+
+		if [ ! -d /run/sshd ]
+		then
+			mkdir /run/sshd
+		fi
 		;;
 
 	*)
@@ -98,8 +107,8 @@ fi
 
 
 /usr/bin/ssh-keygen -A
-addgroup fuse
-addgroup gearbox fuse
+addgroup fuse 2>/dev/null
+addgroup gearbox fuse 2>/dev/null
 
 
 #c_ok "Installing MailHog client."
