@@ -12,6 +12,11 @@ else
 	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /etc/gearbox/bin/version-base.sh
 fi
 
+#if [ "${GEARBOX_BASE_VERSION}" == "" ]
+#then
+#	GEARBOX_BASE_VERSION="${GEARBOX_VERSION}"
+#fi
+
 case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
 		case "${GEARBOX_BASE_VERSION}" in
@@ -33,6 +38,30 @@ case "${GEARBOX_BASE_VERSION}" in
 
 		apk update; checkExit
 		apk add --no-cache ${APKS}; checkExit
+		;;
+
+	"debian-stretch")
+		DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
+		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+		apt-get update; checkExit
+		apt-get install -y --no-install-recommends ${DEBS}; checkExit
+
+		apt-get install -y apt-utils locales; checkExit
+		# apt-get install -y curl tzdata; checkExit
+		# locale-gen en_US.UTF-8; checkExit
+		# curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${ARCH}.tar.gz"; checkExit
+		cd /
+		wget --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
+		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
+		tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
+		rm -rf /s6-overlay-amd64.tar.gz; checkExit
+
+		find /var/lib/apt/lists -type f -delete; checkExit
+
+		if [ ! -d /run/sshd ]
+		then
+			mkdir /run/sshd
+		fi
 		;;
 
 	"debian-"*)

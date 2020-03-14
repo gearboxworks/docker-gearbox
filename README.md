@@ -1,111 +1,107 @@
-![release](https://github.com/gearboxworks/docker-gearbox/workflows/release/badge.svg?event=release)
-
-![Gearbox alpine-3.9](https://img.shields.io/badge/Gearbox-alpine-3.9-green.svg)
-![Gearbox alpine-3.8](https://img.shields.io/badge/Gearbox-alpine-3.8-green.svg)
-![Gearbox alpine-3.7](https://img.shields.io/badge/Gearbox-alpine-3.7-green.svg)
-![Gearbox alpine-3.6](https://img.shields.io/badge/Gearbox-alpine-3.6-green.svg)
-![Gearbox alpine-3.5](https://img.shields.io/badge/Gearbox-alpine-3.5-green.svg)
-![Gearbox alpine-3.4](https://img.shields.io/badge/Gearbox-alpine-3.4-green.svg)
-![Gearbox alpine-3.3](https://img.shields.io/badge/Gearbox-alpine-3.3-green.svg)
-![.github/workflows/release.yml](https://github.com/gearboxworks/docker-gearbox/workflows/.github/workflows/release.yml/badge.svg)
-
 ![Gearbox](https://github.com/gearboxworks/gearbox.github.io/raw/master/Gearbox-100x.png)
 
 
-# Gearbox reference Docker Container for Gearbox
-This is the repository for the Gearbox reference Docker container implemented for [Gearbox](https://github.com/gearboxworks/gearbox).
-It currently provides versions alpine-3.9 alpine-3.8 alpine-3.7 alpine-3.6 alpine-3.5 alpine-3.4 alpine-3.3 debian-stretch
+# Another [Gearbox](https://github.com/gearboxworks/) Docker container service - gearbox-base
+This is the repository for the [gearbox-base](https://gearboxworks.io/) Docker container implemented for [Gearbox](https://github.com/gearboxworks/).
 
 
-## Supported tags and respective Dockerfiles
+## Repository Info
+GitHub commit: ![commit-date](https://img.shields.io/github/last-commit/gearboxworks/docker-gearbox-base?style=flat-square)
 
-`alpine-3.9` _([alpine-3.9/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.9/Dockerfile))_
-`alpine-3.8` _([alpine-3.8/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.8/Dockerfile))_
-`alpine-3.7` _([alpine-3.7/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.7/Dockerfile))_
-`alpine-3.6` _([alpine-3.6/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.6/Dockerfile))_
-`alpine-3.5` _([alpine-3.5/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.5/Dockerfile))_
-`alpine-3.4` _([alpine-3.4/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.4/Dockerfile))_
-`alpine-3.3` _([alpine-3.3/Dockerfile](https://github.com/gearboxworks/gearbox-docker/blob/master/alpine-3.3/Dockerfile))_
+GitHub release(latest): ![last-release-date](https://img.shields.io/github/release-date/gearboxworks/docker-gearbox-base) ![last-release-date](https://img.shields.io/github/v/tag/gearboxworks/docker-gearbox-base?sort=semver) [![release-state](https://github.com/gearboxworks/docker-gearbox-base/workflows/release/badge.svg?event=release)](https://github.com/gearboxworks/docker-gearbox-base/actions?query=workflow%3Arelease)
+
+
+## Supported versions and respective Dockerfiles
+| Service | GitHub Version | Docker Version | Docker Size | Docker Tags | Dockerfile |
+| ------- | -------------- | -------------- | ----------- | ----------- | ---------- |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.10-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.10) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.10) | `alpine-3.10`, ``, `latest` | _([alpine-3.10/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.11-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.11) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.11) | `alpine-3.11`, `` | _([alpine-3.11/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.3-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.3) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.3) | `alpine-3.3`, `` | _([alpine-3.3/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.4-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.4) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.4) | `alpine-3.4`, `` | _([alpine-3.4/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.5-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.5) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.5) | `alpine-3.5`, `` | _([alpine-3.5/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.6-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.6) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.6) | `alpine-3.6`, `` | _([alpine-3.6/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.7-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.7) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.7) | `alpine-3.7`, `` | _([alpine-3.7/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.8-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.8) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.8) | `alpine-3.8`, `` | _([alpine-3.8/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-alpine-3.9-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.9) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.9) | `alpine-3.9`, `` | _([alpine-3.9/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-debian-buster-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-buster) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-buster) | `debian-buster`, ``, `latest` | _([debian-buster/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-debian-stretch-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-stretch) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-stretch) | `debian-stretch`, `` | _([debian-stretch/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
+
 
 
 ## Using this container.
-If you want to use this container as part of Gearbox, then use the Docker Hub method.
-Or you can use the GitHub method to build and run the container.
+This container has been designed to work within the [Gearbox](https://github.com/gearboxworks/)
+framework.
+However, due to the flexability of Gearbox, it can be used outside of this framework.
+You can either use it directly from DockerHub or GitHub.
 
 
-## Using it from Docker Hub
-
-### Links
-(Docker Hub repo)[https://hub.docker.com/r/gearbox/gearbox/]
-
-(Docker Cloud repo)[https://cloud.docker.com/swarm/gearbox/repository/docker/gearbox/gearbox/]
-
-
-### Setup from Docker Hub
-A simple `docker pull gearbox/gearbox` will pull down the latest version.
-
-
-### Runtime from Docker Hub
-start - Spin up a Docker container with the correct runtime configs.
-
-`docker run -d --name gearbox-3.8 --restart unless-stopped --network gearboxnet gearbox/gearbox:alpine-3.8`
-
-stop - Stop a Docker container.
-
-`docker stop gearbox-3.8`
-
-run - Run a Docker container in the foreground, (all STDOUT and STDERR will go to console). The Container be removed on termination.
-
-`docker run --rm --name gearbox-3.8 --network gearboxnet -p 9970:9970  gearbox/gearbox:alpine-3.8`
-
-shell - Run a shell, (/bin/bash), within a Docker container.
-
-`docker run --rm --name gearbox-3.8 -i -t --network gearboxnet -p 9970:9970  gearbox/gearbox:alpine-3.8 /bin/bash`
-
-rm - Remove the Docker container.
-
-`docker container rm gearbox-3.8`
-
-
-## Using it from GitHub repo
+## Method 1: GitHub repo
 
 ### Setup from GitHub repo
 Simply clone this repository to your local machine
 
-`git clone https://github.com/gearboxworks/gearbox-docker.git`
-
+`git clone https://github.com/gearboxworks/gearbox-base-docker.git`
 
 ### Building from GitHub repo
 `make build` - Build Docker images. Build all versions from the base directory or specific versions from each directory.
 
-
 `make list` - List already built Docker images. List all versions from the base directory or specific versions from each directory.
-
 
 `make clean` - Remove already built Docker images. Remove all versions from the base directory or specific versions from each directory.
 
-
 `make push` - Push already built Docker images to Docker Hub, (only for Gearbox admins). Push all versions from the base directory or specific versions from each directory.
-
 
 ### Runtime from GitHub repo
 When you `cd` into a version directory you can also perform a few more actions.
 
 `make start` - Spin up a Docker container with the correct runtime configs.
 
-
 `make stop` - Stop a Docker container.
-
 
 `make run` - Run a Docker container in the foreground, (all STDOUT and STDERR will go to console). The Container be removed on termination.
 
-
 `make shell` - Run a shell, (/bin/bash), within a Docker container.
-
 
 `make rm` - Remove the Docker container.
 
-
 `make test` - Will issue a `stop`, `rm`, `clean`, `build`, `create` and `start` on a Docker container.
 
+
+## Method 2: Docker Hub
+
+### Setup from Docker Hub
+A simple `docker pull gearbox/gearbox-base` will pull down the latest version.
+
+### Starting
+start - Spin up a Docker container with the correct runtime configs.
+
+`docker run -d --name gearbox-base-latest --restart unless-stopped --network gearboxnet gearbox/gearbox-base:latest`
+
+### Stopping
+stop - Stop a Docker container.
+
+`docker stop gearbox-base-latest`
+
+### Remove container
+rm - Remove the Docker container.
+
+`docker container rm gearbox-base-latest`
+
+### Run in foreground
+run - Run a Docker container in the foreground, (all STDOUT and STDERR will go to console). The Container be removed on termination.
+
+`docker run --rm --name gearbox-base-latest --network gearboxnet gearbox/gearbox-base:latest`
+
+### Run a shell
+shell - Run a shell, (/bin/bash), within a Docker container.
+
+`docker run --rm --name gearbox-base-latest -i -t --network gearboxnet gearbox/gearbox-base:latest /bin/bash`
+
+### SSH
+ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
+
+```
+SSH_PORT="$(docker port gearbox-base-latest 22/tcp | sed 's/0.0.0.0://')"
+ssh -p ${SSH_PORT} -o StrictHostKeyChecking=no gearbox@localhost
+```
 

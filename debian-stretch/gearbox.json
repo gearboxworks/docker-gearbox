@@ -86,7 +86,7 @@
 		},
 		"debian-stretch": {
 			"majorversion": "",
-			"latest": false,
+			"latest": true,
 			"ref": "base",
 			"base": "debian:stretch-slim"
 		}
