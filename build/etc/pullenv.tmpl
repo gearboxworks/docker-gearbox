@@ -1,3 +1,15 @@
-{{ range $k, $v := .Env }}{{ $e := $k | ToUpper }}{{ if eq $e "MAIL" }}{{ else if eq $e "HOME" }}{{ else if eq $e "LOGNAME" }}{{ else if eq $e "PATH" }}{{ else if eq $e "PWD" }}{{ else if eq $e "SHELL" }}{{ else if eq $e "SHLVL" }}{{ else if eq $e "USER" }}{{ else if eq $e "_" }}{{ else }}{{ $e }}="{{ $v }}"
-export $e
-{{ end }}{{ end }}
+{{- range $k, $v := .Env }}
+	{{- $e := $k | ToUpper }}
+	{{- if eq $e "MAIL" }}
+	{{- else if eq $e "HOME" }}
+	{{- else if eq $e "LOGNAME" }}
+	{{- else if eq $e "PATH" }}
+	{{- else if eq $e "PWD" }}
+	{{- else if eq $e "SHELL" }}
+	{{- else if eq $e "SHLVL" }}
+	{{- else if eq $e "USER" }}
+	{{- else if eq $e "_" }}
+	{{- else }}
+{{ $e }}="{{ $v }}"; export {{ $e }}
+	{{- end }}
+{{- end }}
