@@ -51,7 +51,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		# locale-gen en_US.UTF-8; checkExit
 		# curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${ARCH}.tar.gz"; checkExit
 		cd /
-		wget --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
+		wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
 		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
 		tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
 		rm -rf /s6-overlay-amd64.tar.gz; checkExit
