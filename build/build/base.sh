@@ -87,6 +87,15 @@ case "${GEARBOX_BASE_VERSION}" in
 esac
 
 
+## Add env for SSHD
+#env|sort|egrep '^GEARBOX|^HTTP' | awk -F= '{print$1"=\x27"$2"\x27; export "$1}' > /etc/profile.d/00-gearbox.sh
+## Important for passing environment through for SSH.
+#env | awk -F= '
+#$1~/^HOSTNAME$/||$1~/^PWD$/||$1~/^HOME$/||$1~/^SHLVL$/||$1~/^PATH$/||$1~/^_$/||$1~/^SSH/||$1~/^SHELL$/||$1~/^LOGNAME$/{next}
+#{print$1"=\x27"$2"\x27; export "$1}
+#' | sort > /etc/environment
+
+
 GROUP="$(grep ^gearbox /etc/group)"
 if [ -z "${GROUP}" ]
 then

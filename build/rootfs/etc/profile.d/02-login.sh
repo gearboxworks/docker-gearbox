@@ -1,5 +1,8 @@
 #!/bin/bash
 
+PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH
+
 if [ "${SHLVL}" == "1" ]
 then
 	c_cyan "# You have entered the ${GEARBOX_CONTAINER_NAME} Docker container."
