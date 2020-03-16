@@ -23,6 +23,7 @@
 		"https_proxy": ""
 	},
 	"refurl": "https://gearboxworks.io/",
+	"base": true,
 	"versions": {
 		"alpine-3.3": {
 			"majorversion": "",
