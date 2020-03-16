@@ -30,7 +30,6 @@ GitHub release(latest): ![last-release-date](https://img.shields.io/github/relea
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/gearbox-base-ubuntu-xenial-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/ubuntu-xenial) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/ubuntu-xenial) | `ubuntu-xenial`, `` | _([ubuntu-xenial/DockerfileRuntime](https://github.com/gearboxworks/docker-gearbox-base/blob/master//DockerfileRuntime))_ |
 
 
-
 ## Using this container.
 This container has been designed to work within the [Gearbox](https://github.com/gearboxworks/)
 framework.
