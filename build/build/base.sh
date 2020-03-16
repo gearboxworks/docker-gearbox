@@ -4,7 +4,6 @@ test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh
 
 c_ok "Started."
 
-c_ok "Update packages."
 #if [ -f /etc/gearbox/bin/version-base.sh ]
 #then
 #	. /etc/gearbox/bin/version-base.sh
@@ -12,9 +11,12 @@ c_ok "Update packages."
 #	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /etc/gearbox/bin/version-base.sh
 #fi
 
-case "${GEARBOX_BASE_VERSION}" in
+VERS="$(echo "${GEARBOX_BASE}" | awk -F: '{print$2}')"
+
+c_ok "Update packages."
+case "${VERS}" in
 	"alpine-"*)
-		case "${GEARBOX_BASE_VERSION}" in
+		case "${VERS}" in
 			"alpine-3.3"|"alpine-3.4"|"alpine-3.5")
 				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
 				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
@@ -36,7 +38,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		;;
 
 	"debian-"*)
-		case "${GEARBOX_BASE_VERSION}" in
+		case "${VERS}" in
 			"debian-stretch")
 				DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
 				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
