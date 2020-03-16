@@ -13,7 +13,7 @@ GitHub release(latest): ![last-release-date](https://img.shields.io/github/relea
 
 ## Supported versions and respective Dockerfiles
 {{- if .Json.base  }}
-|   O/S   | GitHub Version | Docker Version | Docker Size | Docker Tags | Dockerfile |
+|  Base   | GitHub Version | Docker Version | Docker Size | Docker Tags | Dockerfile |
 | ------- | -------------- | -------------- | ----------- | ----------- | ---------- |
 {{- range $key, $value := .Json.versions }}
 | {{ if $.Json.refurl }}[{{ $.Json.name }}]({{ $.Json.refurl }}){{ else }}{{ $.Json.name }}{{ end }} | ![{{ $.Json.name }}](https://img.shields.io/badge/{{ $key }}-green.svg) | ![Docker Version)](https://img.shields.io/docker/v/gearboxworks/{{ $.Json.name }}/{{ $key }}) | ![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/{{ $.Json.name }}/{{ $key }}) | `{{ $key }}`, `{{ $value.majorversion }}`{{ with $value.latest }}, `latest`{{ end }} | _([{{ $key }}/DockerfileRuntime](https://github.com/gearboxworks/docker-{{ $.Json.name }}/blob/master/{{ $value.majorversion }}/DockerfileRuntime))_ |
