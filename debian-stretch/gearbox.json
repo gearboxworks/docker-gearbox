@@ -23,19 +23,8 @@
 		"https_proxy": ""
 	},
 	"refurl": "https://gearboxworks.io/",
+	"base": true,
 	"versions": {
-		"alpine-3.10": {
-			"majorversion": "",
-			"latest": true,
-			"ref": "base",
-			"base": "alpine:3.10"
-		},
-		"alpine-3.11": {
-			"majorversion": "",
-			"latest": false,
-			"ref": "base",
-			"base": "alpine:3.11"
-		},
 		"alpine-3.3": {
 			"majorversion": "",
 			"latest": false,
@@ -78,17 +67,47 @@
 			"ref": "base",
 			"base": "alpine:3.9"
 		},
+		"alpine-3.10": {
+			"majorversion": "",
+			"latest": true,
+			"ref": "base",
+			"base": "alpine:3.10"
+		},
+		"alpine-3.11": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "alpine:3.11"
+		},
+		"ubuntu-trusty": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "ubuntu:trusty"
+		},
+		"ubuntu-xenial": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "ubuntu:xenial"
+		},
+		"ubuntu-bionic": {
+			"majorversion": "",
+			"latest": true,
+			"ref": "base",
+			"base": "ubuntu:bionic"
+		},
+		"debian-stretch": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:stretch-slim"
+		},
 		"debian-buster": {
 			"majorversion": "",
 			"latest": true,
 			"ref": "base",
 			"base": "debian:buster-slim"
-		},
-		"debian-stretch": {
-			"majorversion": "",
-			"latest": true,
-			"ref": "base",
-			"base": "debian:stretch-slim"
 		}
 	}
 }

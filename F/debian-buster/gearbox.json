@@ -1,0 +1,32 @@
+{
+	"state": "production",
+	"organization": "gearboxworks",
+	"name": "gearbox-base",
+	"maintainer": "Gearbox Team <team@gearbox.works>",
+	"version": "debian-buster",
+	"majorversion": "debian",
+	"latest": "1",
+	"class": "system",
+	"network": "--network gearboxnet",
+	"ports": [
+		"22",
+		"9970"
+	],
+	"volumes": "",
+	"restart": "--restart no",
+	"args": "",
+	"env": {
+		"GEARBOX_BASE_VERSION": "debian-buster",
+		"GEARBOX_CONTAINER_NAME": "gearbox-base",
+		"GEARBOX_CONTAINER_VERSION": "debian-buster",
+		"GEARBOX_USER": "gearbox",
+		"GEARBOX_UID": "1000",
+		"GEARBOX_GROUP": "gearbox",
+		"GEARBOX_GID": "1000",
+		"http_proxy": "",
+		"https_proxy": ""
+	},
+	"ref": "base",
+	"refurl": "https://gearboxworks.io/",
+	"base": "debian:buster-slim"
+}

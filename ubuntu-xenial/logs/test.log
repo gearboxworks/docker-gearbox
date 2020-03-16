@@ -6,18 +6,18 @@
 [1m[36mGearbox[[37;1mgearbox-bease[36m]: [37;1mRelease test finished.[0m
 [1m[36mGearbox[[37;1mgearbox-base-ubuntu-xenial[36m]: [37;1mRelease test started.[0m
 UID        PID  PPID  C STIME TTY          TIME CMD
-root         1     0  1 10:05 ?        00:00:00 /bin/s6-svscan /etc/gearbox/services
-root        17     1  0 10:05 ?        00:00:00 s6-supervise GearShift
-root        18     1  0 10:05 ?        00:00:00 s6-supervise sshd
-root        19    18  0 10:05 ?        00:00:00 /usr/sbin/sshd -D -e
-root        20    17  0 10:05 ?        00:00:00 /bin/bash /usr/local/sbin/GearboxGearshift
-root        65    20  0 10:05 ?        00:00:00 sleep 99999999
-root        66    19  0 10:05 ?        00:00:00 sshd: gearbox [priv]
-gearbox     68    66  0 10:05 ?        00:00:00 sshd: gearbox@notty
-gearbox     69    68  0 10:05 ?        00:00:00 /bin/bash -l /etc/gearbox/unit-tests/run.sh
-gearbox     92    69  0 10:05 ?        00:00:00 bash -l /etc/gearbox/unit-tests/gearbox-base/02-release.sh
-gearbox     97    92  0 10:05 ?        00:00:00 ps -eaf
+root         1     0  1 11:12 ?        00:00:00 /bin/s6-svscan /etc/gearbox/services
+root        17     1  0 11:12 ?        00:00:00 s6-supervise GearShift
+root        18     1  0 11:12 ?        00:00:00 s6-supervise sshd
+root        19    17  0 11:12 ?        00:00:00 /bin/bash /usr/local/sbin/GearboxGearshift
+root        20    18  0 11:12 ?        00:00:00 /usr/sbin/sshd -D -e
+root        65    19  0 11:12 ?        00:00:00 sleep 99999999
+root        66    20  0 11:12 ?        00:00:00 sshd: gearbox [priv]
+gearbox     68    66  0 11:12 ?        00:00:00 sshd: gearbox@notty
+gearbox     69    68  0 11:12 ?        00:00:00 /bin/bash -l /etc/gearbox/unit-tests/run.sh
+gearbox     92    69  0 11:12 ?        00:00:00 bash -l /etc/gearbox/unit-tests/gearbox-base/02-release.sh
+gearbox     97    92  0 11:12 ?        00:00:00 ps -eaf
 [1m[36mGearbox[[37;1mgearbox-base-ubuntu-xenial[36m]: [37;1mRelease test finished.[0m
 [1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [37;1mCheck SSHD[0m
-Binary file /proc/19/cmdline matches
+Binary file /proc/20/cmdline matches
 [1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [32mSSHD running[0m

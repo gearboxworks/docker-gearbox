@@ -1,0 +1,15 @@
+[1m[36mGearbox[[37;1mgearbox-base[36m]: [37;1mRelease test started.[0m
+1000
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/01-base.sh[36m]: [32mGearbox user found.[0m
+1000
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/01-base.sh[36m]: [32mGearbox group found.[0m
+[1m[36mGearbox[[37;1mgearbox-bease[36m]: [37;1mRelease test finished.[0m
+[1m[36mGearbox[[37;1mgearbox-base-alpine-3.7[36m]: [37;1mRelease test started.[0m
+1000
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-release.sh[36m]: [32mGearbox user found.[0m
+1000
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-release.sh[36m]: [32mGearbox group found.[0m
+[1m[36mGearbox[[37;1mgearbox-base-alpine-3.7[36m]: [37;1mRelease test finished.[0m
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [37;1mCheck SSHD[0m
+/proc/19/cmdline:/usr/sbin/sshd
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [32mSSHD running[0m
