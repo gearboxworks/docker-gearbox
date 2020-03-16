@@ -5,16 +5,11 @@ test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh
 c_ok "Started."
 
 c_ok "Update packages."
-if [ -f /etc/gearbox/bin/version-base.sh ]
-then
-	. /etc/gearbox/bin/version-base.sh
-else
-	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /etc/gearbox/bin/version-base.sh
-fi
-
-#if [ "${GEARBOX_BASE_VERSION}" == "" ]
+#if [ -f /etc/gearbox/bin/version-base.sh ]
 #then
-#	GEARBOX_BASE_VERSION="${GEARBOX_VERSION}"
+#	. /etc/gearbox/bin/version-base.sh
+#else
+#	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /etc/gearbox/bin/version-base.sh
 #fi
 
 case "${GEARBOX_BASE_VERSION}" in
@@ -40,7 +35,45 @@ case "${GEARBOX_BASE_VERSION}" in
 		apk add --no-cache ${APKS}; checkExit
 		;;
 
-	"debian-stretch")
+	"debian-"*)
+		case "${GEARBOX_BASE_VERSION}" in
+			"debian-stretch")
+				DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
+				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+				apt-get update; checkExit
+				apt-get install -y --no-install-recommends ${DEBS}; checkExit
+
+				apt-get install -y apt-utils locales; checkExit
+				# apt-get install -y curl tzdata; checkExit
+				# locale-gen en_US.UTF-8; checkExit
+				# curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${ARCH}.tar.gz"; checkExit
+				cd /
+				wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
+				tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
+				tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
+				rm -rf /s6-overlay-amd64.tar.gz; checkExit
+				;;
+
+			"debian-"*)
+				DEBS="bash git rsync sudo wget s6 nfs-common ssh fuse libnfs-utils sshfs ssh-tools"
+				apt-get update; checkExit
+				apt-get install -y --no-install-recommends ${DEBS}; checkExit
+
+				# Different path for S6 on later versions of Debian.
+				ls -1 /usr/bin/s6* | xargs -i ln -s {} /bin 2>/dev/null
+				echo ""
+				;;
+			esac
+
+			find /var/lib/apt/lists -type f -delete; checkExit
+
+			if [ ! -d /run/sshd ]
+			then
+				mkdir /run/sshd
+			fi
+		;;
+
+	"ubuntu-"*)
 		DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
 		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 		apt-get update; checkExit
@@ -57,22 +90,6 @@ case "${GEARBOX_BASE_VERSION}" in
 		rm -rf /s6-overlay-amd64.tar.gz; checkExit
 
 		find /var/lib/apt/lists -type f -delete; checkExit
-
-		if [ ! -d /run/sshd ]
-		then
-			mkdir /run/sshd
-		fi
-		;;
-
-	"debian-"*)
-		DEBS="bash git rsync sudo wget s6 nfs-common ssh fuse libnfs-utils sshfs ssh-tools"
-		apt-get update; checkExit
-		apt-get install -y --no-install-recommends ${DEBS}; checkExit
-		find /var/lib/apt/lists -type f -delete; checkExit
-
-		# Different path for S6 on Debian.
-		ls -1 /usr/bin/s6* | xargs -i ln -s {} /bin 2>/dev/null
-		echo ""
 
 		if [ ! -d /run/sshd ]
 		then
