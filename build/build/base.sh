@@ -4,6 +4,15 @@ test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh
 
 c_ok "Started."
 
+if [ "${GEARBOX_BASE_REF}" != "base" ]
+then
+	if [ "${GEARBOX_BASE}" != "" ]
+	then
+		GEARBOX_BASE_VERSION="$(echo "${GEARBOX_BASE}" | awk -F: '{print$2}')"
+		export GEARBOX_BASE_VERSION
+	fi
+fi
+
 case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
 		case "${GEARBOX_BASE_VERSION}" in
