@@ -4,19 +4,9 @@ test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh
 
 c_ok "Started."
 
-#if [ -f /etc/gearbox/bin/version-base.sh ]
-#then
-#	. /etc/gearbox/bin/version-base.sh
-#else
-#	echo "GEARBOX_BASE_VERSION=${GEARBOX_CONTAINER_VERSION}; export GEARBOX_BASE_VERSION" > /etc/gearbox/bin/version-base.sh
-#fi
-
-VERS="$(echo "${GEARBOX_BASE}" | awk -F: '{print$2}')"
-
-c_ok "Update packages."
-case "${VERS}" in
+case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
-		case "${VERS}" in
+		case "${GEARBOX_BASE_VERSION}" in
 			"alpine-3.3"|"alpine-3.4"|"alpine-3.5")
 				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
 				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh git rsync sudo ncurses"
@@ -33,13 +23,15 @@ case "${VERS}" in
 				;;
 		esac
 
+		c_info "Update packages."
 		apk update; checkExit
 		apk add --no-cache ${APKS}; checkExit
 		;;
 
 	"debian-"*)
-		case "${VERS}" in
+		case "${GEARBOX_BASE_VERSION}" in
 			"debian-stretch")
+				c_info "Update packages."
 				DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
 				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 				apt-get update; checkExit
@@ -57,6 +49,7 @@ case "${VERS}" in
 				;;
 
 			"debian-"*)
+				c_info "Update packages."
 				DEBS="bash git rsync sudo wget s6 nfs-common ssh fuse libnfs-utils sshfs ssh-tools"
 				apt-get update; checkExit
 				apt-get install -y --no-install-recommends ${DEBS}; checkExit
@@ -76,6 +69,7 @@ case "${VERS}" in
 		;;
 
 	"ubuntu-"*)
+		c_info "Update packages."
 		DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
 		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 		apt-get update; checkExit
@@ -85,6 +79,8 @@ case "${VERS}" in
 		# apt-get install -y curl tzdata; checkExit
 		# locale-gen en_US.UTF-8; checkExit
 		# curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${ARCH}.tar.gz"; checkExit
+
+		c_info "Install S6."
 		cd /
 		wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
 		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
@@ -163,6 +159,7 @@ else
 fi
 
 
+c_info "Generate SSH host keys."
 /usr/bin/ssh-keygen -A
 addgroup fuse 2>/dev/null
 addgroup gearbox fuse 2>/dev/null
