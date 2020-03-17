@@ -127,9 +127,9 @@ then
 	GROUPADD="$(which groupadd)"
 	if [ -z "${GROUPADD}" ]
 	then
-		echo 'gearbox:x:1000:' >> /etc/group
+		echo "gearbox:x:${GEARBOX_GID}:" >> /etc/group
 	else
-		groupadd -g 1000 gearbox; checkExit
+		groupadd -g ${GEARBOX_GID} gearbox; checkExit
 	fi
 fi
 
@@ -148,10 +148,10 @@ then
 	GROUPADD="$(which useradd)"
 	if [ -z "${GROUPADD}" ]
 	then
-		echo 'gearbox:x:1000:1000:Gearbox user:/home/gearbox:/bin/bash' >> /etc/passwd
+		echo "gearbox:x:${GEARBOX_UID}:${GEARBOX_GID}:Gearbox user:/home/gearbox:/bin/bash" >> /etc/passwd
 		echo 'gearbox:$6$XdlAWysgxyUyxjAV$ivrS09OkFINgCUdHjUQYG68FqW/Dkyia1iB1AN2RpgqdmgGP4DtYOAj47C5xCX8pD5iOub0q6M66zBn2bX27m1:17927:0:99999:7:::' >> /etc/shadow
 	else
-		useradd -d /home/gearbox -c "Gearbox user" -u 1000 -g 1000 -N -s /bin/bash -p '$6$XdlAWysgxyUyxjAV$ivrS09OkFINgCUdHjUQYG68FqW/Dkyia1iB1AN2RpgqdmgGP4DtYOAj47C5xCX8pD5iOub0q6M66zBn2bX27m1' gearbox; checkExit
+		useradd -d /home/gearbox -c "Gearbox user" -u ${GEARBOX_UID} -g ${GEARBOX_GID} -N -s /bin/bash -p '$6$XdlAWysgxyUyxjAV$ivrS09OkFINgCUdHjUQYG68FqW/Dkyia1iB1AN2RpgqdmgGP4DtYOAj47C5xCX8pD5iOub0q6M66zBn2bX27m1' gearbox; checkExit
 	fi
 fi
 
