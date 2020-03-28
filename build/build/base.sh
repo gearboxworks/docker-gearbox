@@ -1,5 +1,6 @@
 #!/bin/bash
 
+test -f /etc/gearbox/build/base.env && . /etc/gearbox/build/base.env
 test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh
 
 c_ok "Started."
@@ -190,6 +191,9 @@ addgroup gearbox fuse 2>/dev/null
 c_ok "Cleaning up."
 find /usr/local/*bin -type f | xargs chmod 775
 
+c_ok "Creating env."
+/etc/gearbox/bin/pullenv.sh
+cp /etc/environment /etc/gearbox/build/base.env
 
 c_ok "Finished."
 exit 0

@@ -280,6 +280,18 @@ gb_clean() {
 				p_warn "${GB_IMAGEVERSION}" "Image already removed."
 				;;
 		esac
+
+
+		gb_checkImage ${GB_IMAGENAME}:latest
+		case ${STATE} in
+			'PRESENT')
+				p_info "${GB_IMAGENAME}:latest" "Removing image."
+				docker image rm -f ${GB_IMAGENAME}:latest
+				;;
+			*)
+				p_warn "${GB_IMAGENAME}:latest" "Image already removed."
+				;;
+		esac
 	done
 
 	return 0
@@ -325,13 +337,18 @@ gb_build() {
 			script ${LOG_ARGS} ${LOGFILE} \
 				docker build -t ${GB_IMAGENAME}:${GB_VERSION} -f ${GB_DOCKERFILE} --build-arg GEARBOX_ENTRYPOINT --build-arg GEARBOX_ENTRYPOINT_ARGS ${DOCKER_ARGS} .
 			p_info "${GB_IMAGENAME}:${GB_VERSION}" "Log file saved to \"${LOGFILE}\""
+		else
+			docker build -t ${GB_IMAGENAME}:${GB_VERSION} -f ${GB_DOCKERFILE} --build-arg GEARBOX_ENTRYPOINT --build-arg GEARBOX_ENTRYPOINT_ARGS ${DOCKER_ARGS} .
 		fi
-
-		docker build -t ${GB_IMAGENAME}:${GB_VERSION} -f ${GB_DOCKERFILE} --build-arg GEARBOX_ENTRYPOINT --build-arg GEARBOX_ENTRYPOINT_ARGS ${DOCKER_ARGS} .
 
 		if [ "${GB_MAJORVERSION}" != "" ]
 		then
 			docker tag ${GB_IMAGENAME}:${GB_VERSION} ${GB_IMAGENAME}:${GB_MAJORVERSION}
+		fi
+
+		if [ "${GB_LATEST}" == "true" ]
+		then
+			docker tag ${GB_IMAGENAME}:${GB_VERSION} ${GB_IMAGENAME}:latest
 		fi
 	done
 
@@ -521,6 +538,12 @@ gb_dockerhub() {
 		docker push ${GB_IMAGEVERSION}
 		p_info "${GB_IMAGEMAJORVERSION}" "Pushing image to DockerHub."
 		docker push ${GB_IMAGEMAJORVERSION}
+
+		if [ "${GB_LATEST}" == "true" ]
+		then
+			p_info "${GB_IMAGENAME}:latest" "Pushing image to DockerHub."
+			docker push "${GB_IMAGENAME}:latest"
+		fi
 	done
 
 	return 0
