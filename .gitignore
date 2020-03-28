@@ -1,4 +1,4 @@
-docker-template.tgz
+*/logs/*.log
 .*.swp
 *.OLD
 docker-template
