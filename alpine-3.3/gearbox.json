@@ -1,29 +1,35 @@
 {
-	"state": "production",
-	"organization": "gearboxworks",
-	"name": "gearbox-base",
-	"maintainer": "Gearbox Team <team@gearbox.works>",
-	"class": "system",
-	"network": "--network gearboxnet",
-	"ports": [
-		"22",
-		"9970"
-	],
-	"volumes": "",
-	"restart": "--restart no",
-	"run": "",
-	"args": "",
-	"env": {
-		"GEARBOX_CONTAINER_NAME": "gearbox-base",
-		"GEARBOX_USER": "gearbox",
-		"GEARBOX_UID": "4242",
-		"GEARBOX_GROUP": "gearbox",
-		"GEARBOX_GID": "4242",
-		"http_proxy": "",
-		"https_proxy": ""
+	"meta": {
+		"state": "production",
+		"organization": "gearboxworks",
+		"name": "gearbox-base",
+		"maintainer": "Gearbox Team <team@gearbox.works>",
+		"class": "system",
+		"refurl": "https://gearboxworks.io/"
 	},
-	"refurl": "https://gearboxworks.io/",
-	"base": true,
+	"build": {
+		"base": true,
+		"ports": [
+			"22",
+			"9970"
+		],
+		"run": "",
+		"args": "",
+		"env": {
+			"GEARBOX_CONTAINER_NAME": "gearbox-base",
+			"GEARBOX_USER": "gearbox",
+			"GEARBOX_UID": "4242",
+			"GEARBOX_GROUP": "gearbox",
+			"GEARBOX_GID": "4242",
+			"http_proxy": "",
+			"https_proxy": ""
+		},
+		"network": "--network gearboxnet",
+		"volumes": "",
+		"restart": "--restart no"
+	},
+	"run": {
+	},
 	"versions": {
 		"alpine-3.3": {
 			"majorversion": "",
