@@ -28,6 +28,8 @@ then
 	GB_NAME="$(${GB_BINFILE} -json ${GB_JSONFILE} -template-string '{{ .Json.meta.name }}')"
 fi
 
+GB_BASE="$(${GB_BINFILE} -json gearbox.json -template-string '{{ .Json.build.base }}')"
+
 GITBIN="$(which git)"
 GB_GITURL="$(${GITBIN} config --get remote.origin.url)"
 if [ "${GB_GITURL}" == "" ]
@@ -95,13 +97,22 @@ _listVersions() {
 ################################################################################
 gb_getenv() {
 	VERSION_DIR="$1"
-	if [ -f "${VERSION_DIR}/.env.tmpl" ]
+	if [ -f "TEMPLATE/version/.env.tmpl" ]
 	then
 		# DIR="$(./bin/JsonToConfig-${ARCH} -json "${GB_JSONFILE}" -template-string '{{ .Json.version }}')"
-		${GB_BINFILE} -json "${GB_JSONFILE}" -template "${VERSION_DIR}/.env.tmpl" -out "${VERSION_DIR}/.env"
+		${GB_BINFILE} -json "${GB_JSONFILE}" -template "TEMPLATE/version/.env.tmpl" -out "${VERSION_DIR}/.env"
 	fi
-
 	. "${VERSION_DIR}/.env"
+}
+
+
+################################################################################
+gb_getdockerfile() {
+	VERSION_DIR="$1"
+	if [ -f "TEMPLATE/version/DockerfileRuntime.tmpl" ]
+	then
+		${GB_BINFILE} -json "${GB_JSONFILE}" -template "TEMPLATE/version/DockerfileRuntime.tmpl" -out "${VERSION_DIR}/DockerfileRuntime"
+	fi
 }
 
 
@@ -162,7 +173,7 @@ gb_init() {
 
 	gb_create-build ${GB_JSONFILE}
 	gb_create-version ${GB_JSONFILE}
-	${DIR}/JsonToConfig-$(uname -s) -json "${GB_JSONFILE}" -template TEMPLATE/README.md.tmpl -out README.md
+	# ${DIR}/JsonToConfig-$(uname -s) -json "${GB_JSONFILE}" -template TEMPLATE/README.md.tmpl -out README.md
 
 	return 0
 }
@@ -174,19 +185,26 @@ gb_create-build() {
 	then
 		return 1
 	fi
-	p_ok "${FUNCNAME[0]}" "Creating build directory."
 
 	if [ -d build ]
 	then
-		p_warn "${FUNCNAME[0]}" "Directory \"build\" already exists."
-		return 0
+		p_ok "${FUNCNAME[0]}" "Updating build directory."
+	else
+		p_ok "${FUNCNAME[0]}" "Creating build directory."
+		cp -i TEMPLATE/build.sh.tmpl .
+		${GB_BINFILE} -json ${GB_JSONFILE} -create build.sh.tmpl -shell
+		rm -f build.sh.tmpl build.sh
 	fi
 
-	cp -i TEMPLATE/build.sh.tmpl .
-	${GB_BINFILE} -json ${GB_JSONFILE} -create build.sh.tmpl -shell
-	rm -f build.sh.tmpl build.sh
-
 	${GB_BINFILE} -template ./TEMPLATE/README.md.tmpl -json ${GB_JSONFILE} -out README.md
+
+	cp ./TEMPLATE/Makefile .
+	if [ "${GB_BASE}" == "true" ]
+	then
+		cp "${GB_JSONFILE}" build/
+	else
+		cp "${GB_JSONFILE}" "build/gearbox-${GB_NAME}.json"
+	fi
 
 	return 0
 }
@@ -200,21 +218,24 @@ gb_create-version() {
 	fi
 	p_ok "${FUNCNAME[0]}" "Creating version directory for versions: ${GB_VERSIONS}"
 
-
-	${GB_BINFILE} -template ./TEMPLATE/README.md.tmpl -json ${GB_JSONFILE} -out README.md
-
 	for GB_VERSION in ${GB_VERSIONS}
 	do
 		if [ -d ${GB_VERSION} ]
 		then
-			p_warn "${FUNCNAME[0]}" "Directory \"${GB_VERSION}\" already exists."
+			p_info "${FUNCNAME[0]}" "Updating version directory \"${GB_VERSION}\"."
+			${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/version/DockerfileRuntime.tmpl -out "${GB_VERSION}/DockerfileRuntime"
+			${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/version/.env.tmpl -out "${GB_VERSION}/.env"
+			rm -f "${GB_VERSION}/gearbox.json"
+
 		else
 			p_info "${FUNCNAME[0]}" "Creating version directory \"${GB_VERSION}\"."
 			cp -i TEMPLATE/version.sh.tmpl .
 			${GB_BINFILE} -json ${GB_JSONFILE} -create version.sh.tmpl -shell
-			rm -f version.sh.tmpl version.sh
+			rm -f version.sh.tmpl version.sh "${GB_VERSION}/gearbox.json"
 		fi
 	done
+
+	${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/README.md.tmpl -out README.md
 
 	return 0
 }
@@ -310,6 +331,8 @@ gb_build() {
 	for GB_VERSION in ${GB_VERSIONS}
 	do
 		gb_getenv ${GB_VERSION}
+		gb_getdockerfile ${GB_VERSION}
+
 
 		# LOGFILE="${GB_VERSION}/logs/$(date +'%Y%m%d-%H%M%S').log"
 		LOGFILE="${GB_VERSION}/logs/build.log"
