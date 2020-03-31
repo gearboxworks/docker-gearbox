@@ -1,4 +1,5 @@
 {
+	"schema": "gear-1",
 	"meta": {
 		"state": "production",
 		"organization": "gearboxworks",
