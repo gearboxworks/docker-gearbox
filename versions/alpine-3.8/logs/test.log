@@ -1,0 +1,23 @@
+[1m[36mGearbox[[37;1mgearbox-base[36m]: [37;1mRelease test started.[0m
+4242
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/01-base.sh[36m]: [32mGearbox user found.[0m
+4242
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/01-base.sh[36m]: [32mGearbox group found.[0m
+[1m[36mGearbox[[37;1mgearbox-bease[36m]: [37;1mRelease test finished.[0m
+[1m[36mGearbox[[37;1mgearbox-base-alpine-3.8[36m]: [37;1mRelease test started.[0m
+PID   USER     TIME  COMMAND
+    1 root      0:00 /bin/s6-svscan /etc/gearbox/services
+   16 root      0:00 s6-supervise GearShift
+   17 root      0:00 s6-supervise sshd
+   18 root      0:00 {GearboxGearshif} /bin/bash /usr/local/sbin/GearboxGearshift
+   19 root      0:00 /usr/sbin/sshd -D -e
+   57 root      0:00 sleep 99999999
+   63 root      0:00 sshd: gearbox [priv]
+   65 gearbox   0:00 sshd: gearbox@notty
+   66 gearbox   0:00 {run.sh} /bin/bash -l /etc/gearbox/unit-tests/run.sh
+   89 gearbox   0:00 bash -l /etc/gearbox/unit-tests/gearbox-base/02-release.sh
+   94 gearbox   0:00 ps -eaf
+[1m[36mGearbox[[37;1mgearbox-base-alpine-3.8[36m]: [37;1mRelease test finished.[0m
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [37;1mCheck SSHD[0m
+/proc/19/cmdline:/usr/sbin/sshd
+[1m[36mGearbox[[37;1m/etc/gearbox/unit-tests/gearbox-base/02-sshd.sh[36m]: [32mSSHD running[0m

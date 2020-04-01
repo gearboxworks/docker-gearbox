@@ -1,0 +1,83 @@
+
+################################################################################
+# WARNING: This file has been auto-generated. DO NOT EDIT: WARNING
+# Created on 2020-04-01T11:15:42+1100, using template:DockerfileRuntime.tmpl and json:gearbox.json
+# Base Reference Docker container for docker-gearbox-base based off ubuntu:bionic
+
+ARG VERSION=ubuntu-bionic
+
+# 1. First reference the gearbox-base image.
+FROM ubuntu:bionic
+ARG VERSION
+# ARG GEARBOX_ENTRYPOINT
+# ARG GEARBOX_ENTRYPOINT_ARGS
+
+# 2. Set up env variables.
+MAINTAINER Gearbox Team <team@gearbox.works>
+ENV GEARBOX_CONTAINER_NAME "docker-gearbox-base"
+ENV GEARBOX_CONTAINER_VERSION ${VERSION}
+LABEL gearbox.json='{"schema": "gear-1","meta": {"state": "production","organization": "gearboxworks","name": "gearbox-base","maintainer": "Gearbox Team <team@gearbox.works>","class": "system","refurl": "https://gearboxworks.io/"},"build": {"base": true,"ports": ["22","9970"],"run": "","args": "","env": {"GEARBOX_CONTAINER_NAME": "gearbox-base","GEARBOX_USER": "gearbox","GEARBOX_UID": "4242","GEARBOX_GROUP": "gearbox","GEARBOX_GID": "4242","http_proxy": "","https_proxy": ""},"network": "--network gearboxnet","volumes": "","restart": "--restart no"},"run": {},"versions": {"alpine-3.3": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.3"},"alpine-3.4": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.4"},"alpine-3.5": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.5"},"alpine-3.6": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.6"},"alpine-3.7": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.7"},"alpine-3.8": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.8"},"alpine-3.9": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.9"},"alpine-3.10": {"majorversion": "","latest": true,"ref": "base","base": "alpine:3.10"},"alpine-3.11": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.11"},"ubuntu-trusty": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:trusty"},"ubuntu-xenial": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:xenial"},"ubuntu-bionic": {"majorversion": "","latest": true,"ref": "base","base": "ubuntu:bionic"},"debian-stretch": {"majorversion": "","latest": false,"ref": "base","base": "debian:stretch-slim"},"debian-buster": {"majorversion": "","latest": true,"ref": "base","base": "debian:buster-slim"}}}'
+LABEL gearbox.version='ubuntu-bionic'
+ENV GEARBOX_VERSION "ubuntu-bionic"
+ENV GEARBOX_BASE_VERSION "ubuntu-bionic"
+ENV GEARBOX_BASE_REF "base"
+LABEL container.class="system"
+ENV GEARBOX_CLASS "system"
+LABEL container.maintainer="Gearbox Team <team@gearbox.works>"
+ENV GEARBOX_MAINTAINER "Gearbox Team <team@gearbox.works>"
+LABEL container.name="gearbox-base"
+ENV GEARBOX_NAME "gearbox-base"
+LABEL container.organization="gearboxworks"
+ENV GEARBOX_ORGANIZATION "gearboxworks"
+LABEL container.refurl="https://gearboxworks.io/"
+ENV GEARBOX_REFURL "https://gearboxworks.io/"
+LABEL container.state="production"
+ENV GEARBOX_STATE "production"
+LABEL container.args=""
+ENV GEARBOX_ARGS ""
+LABEL container.base="true"
+ENV GEARBOX_BASE "true"
+# SKIP env
+LABEL container.network="--network gearboxnet"
+ENV GEARBOX_NETWORK "--network gearboxnet"
+LABEL container.ports="[22 9970]"
+ENV GEARBOX_PORTS "[22 9970]"
+LABEL container.restart="--restart no"
+ENV GEARBOX_RESTART "--restart no"
+LABEL container.run=""
+ENV GEARBOX_RUN ""
+LABEL container.volumes=""
+ENV GEARBOX_VOLUMES ""
+LABEL container.base="ubuntu:bionic"
+ENV GEARBOX_BASE "ubuntu:bionic"
+LABEL container.latest="true"
+ENV GEARBOX_LATEST "true"
+LABEL container.majorversion=""
+ENV GEARBOX_MAJORVERSION ""
+LABEL container.ref="base"
+ENV GEARBOX_REF "base"
+ENV GEARBOX_CONTAINER_NAME "gearbox-base"
+ENV GEARBOX_GID "4242"
+ENV GEARBOX_GROUP "gearbox"
+ENV GEARBOX_UID "4242"
+ENV GEARBOX_USER "gearbox"
+ENV HTTP_PROXY ""
+ENV HTTPS_PROXY ""
+
+# 3. Now copy the local files specific to this container.
+COPY build /etc/gearbox
+COPY versions/${VERSION}/build /etc/gearbox
+
+# 4. Run the base.sh script to set everything up.
+RUN /bin/sh /etc/gearbox/build/base.sh
+
+# 6. Expose ports.
+EXPOSE 22 9970 
+WORKDIR /home/gearbox/projects
+USER root
+
+# 7. Run S6 init.
+CMD ["/init"]
+
+# END
+################################################################################
