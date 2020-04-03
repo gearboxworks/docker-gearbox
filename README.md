@@ -1,4 +1,4 @@
-![Gearbox](https://raw.githubusercontent.com/gearboxworks/gearboxworks.github.io/master/assets/images/gearbox-logo.png)
+![Gearbox](https://gearboxworks.github.io/assets/images/gearbox-logo.png)
 
 
 # gearbox-base Docker container service for [Gearbox](https://github.com/gearboxworks/)
@@ -78,9 +78,9 @@ Create, and start the gearbox-base Gearbox container. Run a shell.
 
 `./bin/gb-launch -gb-name gearbox-base -gb-shell`
 
-Create, and start the gearbox-base Gearbox container with version debian-stretch and run a shell.
+Create, and start the gearbox-base Gearbox container with version alpine-3.4 and run a shell.
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version debian-stretch -gb-shell`
+`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell`
 
 If gearbox-base is symlinked to `gb-launch`, then you can drop the `-gb-name` flag.
 
@@ -90,18 +90,18 @@ Running gearbox-base Gearbox container default command. If a container has a def
 
 `./bin/gearbox-base -flag1 -flag2 variable`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version debian-stretch -flag1 -flag2 variable`
+`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -flag1 -flag2 variable`
 
 
 Running alternate commands within the gearbox-base Gearbox container.
 
 `./bin/gearbox-base -gb-shell -- ls -l`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version debian-stretch -gb-shell -- ls -l`
+`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ls -l`
 
 `./bin/gearbox-base -gb-shell -- ps -eaf`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version debian-stretch -gb-shell -- ps -eaf`
+`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ps -eaf`
 
 
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
