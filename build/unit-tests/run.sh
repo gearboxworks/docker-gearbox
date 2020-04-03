@@ -13,10 +13,10 @@ do
 	bash -l ${CMD}
 
 	RETURN="$?"
-	echo "RETURN:${RETURN}"
 	if [ "$RETURN" != "0" ]
 	then
 		EXIT="$RETURN"
+		echo "RETURN:${RETURN}"
 	fi
 done
 

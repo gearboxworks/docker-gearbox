@@ -1,4 +1,4 @@
-*/logs/*.log
+versions/*/logs/*.log
 .*.swp
 *.OLD
 docker-template

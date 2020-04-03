@@ -1,7 +1,7 @@
 
 ################################################################################
 # WARNING: This file has been auto-generated. DO NOT EDIT: WARNING
-# Created on 2020-04-01T11:55:00+1100, using template:DockerfileRuntime.tmpl and json:gearbox.json
+# Created on 2020-04-03T17:20:33+1100, using template:DockerfileRuntime.tmpl and json:gearbox.json
 # Base Reference Docker container for docker-gearbox-base based off alpine:3.6
 
 ARG VERSION=alpine-3.6
