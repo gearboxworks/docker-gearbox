@@ -1,23 +1,32 @@
 #!/bin/bash
 
-PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+if [ ! -z "${GEARBOX_PROJECT_DIR}" ]
+then
+	GEARBOX_PROJECT_DIR="/home/gearbox/projects/default"
+fi
+
+PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${GEARBOX_PROJECT_DIR}"
 export PATH
+
+if [ -d "${GEARBOX_PROJECT_DIR}" ]
+then
+	cd "${GEARBOX_PROJECT_DIR}"
+else
+	cd /home/gearbox/projects/default
+fi
 
 if [ "${SHLVL}" == "1" ]
 then
 	c_cyan "# You have entered the ${GEARBOX_CONTAINER_NAME} Docker container."
-	c_cyan "# All changes made here outside of /home/gearbox/projects will not be permanent."
-	echo ""
 
-	#if [ -f "/project/.NOTMOUNTED" ]
-	#then
-	#	echo "# WARNING: Currently the project base directory has NOT been mounted. - /project"
-	#fi
-
-	if [ -f "/home/gearbox/projects/default/.NOTMOUNTED" ]
+	if [ -f "${GEARBOX_PROJECT_DIR}/.NOTMOUNTED" ]
 	then
 		c_warn "# WARNING: Currently the project base directory has NOT been mounted."
-		c_warn "#  - /home/gearbox/projects/default"
+		c_warn "#  - ${GEARBOX_PROJECT_DIR}"
+		echo ""
+	else
+		c_cyan "# All changes made outside of /home/gearbox/projects may not be permanent."
 		echo ""
 	fi
 fi
+
