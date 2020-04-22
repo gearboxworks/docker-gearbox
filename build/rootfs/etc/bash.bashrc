@@ -22,3 +22,14 @@ then
 		. /etc/bash_completion
 	fi
 fi
+
+if [ ! -z "${GEARBOX_PROJECT_DIR}" ]
+then
+	if [ -d "${GEARBOX_PROJECT_DIR}" ]
+	then
+		cd "${GEARBOX_PROJECT_DIR}"
+	else
+		cd /home/gearbox/projects/default
+	fi
+fi
+
