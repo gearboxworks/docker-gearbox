@@ -1,7 +1,7 @@
 
 ################################################################################
 # WARNING: This file has been auto-generated. DO NOT EDIT: WARNING
-# Created on 2020-04-03T18:44:57+1100, using template:DockerfileRuntime.tmpl and json:gearbox.json
+# Created on 2020-04-27T17:11:37+1000, using template:DockerfileRuntime.tmpl and json:gearbox.json
 # Base Reference Docker container for docker-gearbox-base based off alpine:3.4
 
 ARG VERSION=alpine-3.4
@@ -16,13 +16,15 @@ ARG VERSION
 MAINTAINER Gearbox Team <team@gearbox.works>
 ENV GEARBOX_CONTAINER_NAME "docker-gearbox-base"
 ENV GEARBOX_CONTAINER_VERSION ${VERSION}
-LABEL gearbox.json='{"schema": "gear-1","meta": {"state": "production","organization": "gearboxworks","name": "gearbox-base","maintainer": "Gearbox Team <team@gearbox.works>","class": "system","refurl": "https://gearboxworks.io/"},"build": {"base": true,"ports": ["22","9970"],"run": "","args": "","env": {"GEARBOX_CONTAINER_NAME": "gearbox-base","GEARBOX_USER": "gearbox","GEARBOX_UID": "4242","GEARBOX_GROUP": "gearbox","GEARBOX_GID": "4242","http_proxy": "","https_proxy": ""},"network": "--network gearboxnet","volumes": "","restart": "--restart no"},"run": {},"versions": {"alpine-3.3": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.3"},"alpine-3.4": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.4"},"alpine-3.5": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.5"},"alpine-3.6": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.6"},"alpine-3.7": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.7"},"alpine-3.8": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.8"},"alpine-3.9": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.9"},"alpine-3.10": {"majorversion": "","latest": true,"ref": "base","base": "alpine:3.10"},"alpine-3.11": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.11"},"ubuntu-trusty": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:trusty"},"ubuntu-xenial": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:xenial"},"ubuntu-bionic": {"majorversion": "","latest": true,"ref": "base","base": "ubuntu:bionic"},"debian-stretch": {"majorversion": "","latest": false,"ref": "base","base": "debian:stretch-slim"},"debian-buster": {"majorversion": "","latest": true,"ref": "base","base": "debian:buster-slim"}}}'
+LABEL gearbox.json='{"schema": "gear-1","meta": {"state": "production","organization": "gearboxworks","name": "gearbox-base","label": "Gearbox base","maintainer": "Gearbox Team <team@gearbox.works>","class": "system","refurl": "https://gearboxworks.io/"},"build": {"base": true,"ports": {"ssh":"22","gearbox":"9970"},"run": "","args": "","env": {"GEARBOX_CONTAINER_NAME": "gearbox-base","GEARBOX_USER": "gearbox","GEARBOX_UID": "4242","GEARBOX_GROUP": "gearbox","GEARBOX_GID": "4242","http_proxy": "","https_proxy": ""},"network": "--network gearboxnet","volumes": "","restart": "--restart no"},"run": {},"versions": {"alpine-3.3": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.3"},"alpine-3.4": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.4"},"alpine-3.5": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.5"},"alpine-3.6": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.6"},"alpine-3.7": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.7"},"alpine-3.8": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.8"},"alpine-3.9": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.9"},"alpine-3.10": {"majorversion": "","latest": true,"ref": "base","base": "alpine:3.10"},"alpine-3.11": {"majorversion": "","latest": false,"ref": "base","base": "alpine:3.11"},"ubuntu-trusty": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:trusty"},"ubuntu-xenial": {"majorversion": "","latest": false,"ref": "base","base": "ubuntu:xenial"},"ubuntu-bionic": {"majorversion": "","latest": true,"ref": "base","base": "ubuntu:bionic"},"debian-stretch": {"majorversion": "","latest": false,"ref": "base","base": "debian:stretch-slim"},"debian-buster": {"majorversion": "","latest": true,"ref": "base","base": "debian:buster-slim"}}}'
 LABEL gearbox.version='alpine-3.4'
 ENV GEARBOX_VERSION "alpine-3.4"
 ENV GEARBOX_BASE_VERSION "alpine-3.4"
 ENV GEARBOX_BASE_REF "base"
 LABEL container.class="system"
 ENV GEARBOX_CLASS "system"
+LABEL container.label="Gearbox base"
+ENV GEARBOX_LABEL "Gearbox base"
 LABEL container.maintainer="Gearbox Team <team@gearbox.works>"
 ENV GEARBOX_MAINTAINER "Gearbox Team <team@gearbox.works>"
 LABEL container.name="gearbox-base"
@@ -40,8 +42,8 @@ ENV GEARBOX_BASE "true"
 # SKIP env
 LABEL container.network="--network gearboxnet"
 ENV GEARBOX_NETWORK "--network gearboxnet"
-LABEL container.ports="[22 9970]"
-ENV GEARBOX_PORTS "[22 9970]"
+LABEL container.ports="map[gearbox:9970 ssh:22]"
+ENV GEARBOX_PORTS "map[gearbox:9970 ssh:22]"
 LABEL container.restart="--restart no"
 ENV GEARBOX_RESTART "--restart no"
 LABEL container.run=""
@@ -72,7 +74,7 @@ COPY versions/${VERSION}/build /etc/gearbox
 RUN /bin/sh /etc/gearbox/build/base.sh
 
 # 6. Expose ports.
-EXPOSE 22 9970 
+EXPOSE 9970 22 
 WORKDIR /home/gearbox/projects
 USER root
 
