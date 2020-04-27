@@ -4,16 +4,17 @@
 		"state": "production",
 		"organization": "gearboxworks",
 		"name": "gearbox-base",
+		"label": "Gearbox base",
 		"maintainer": "Gearbox Team <team@gearbox.works>",
 		"class": "system",
 		"refurl": "https://gearboxworks.io/"
 	},
 	"build": {
 		"base": true,
-		"ports": [
-			"22",
-			"9970"
-		],
+		"ports": {
+			"ssh":"22",
+			"gearbox":"9970"
+		},
 		"run": "",
 		"args": "",
 		"env": {

@@ -8,11 +8,14 @@ fi
 PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${GEARBOX_PROJECT_DIR}"
 export PATH
 
-if [ -d "${GEARBOX_PROJECT_DIR}" ]
+if [ "${USER}" == "gearbox" ]
 then
-	cd "${GEARBOX_PROJECT_DIR}"
-else
-	cd /home/gearbox/projects/default
+	if [ -d "${GEARBOX_PROJECT_DIR}" ]
+	then
+		cd "${GEARBOX_PROJECT_DIR}"
+	else
+		cd /home/gearbox/projects/default
+	fi
 fi
 
 if [ "${SHLVL}" == "1" ]
