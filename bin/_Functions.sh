@@ -106,7 +106,11 @@ gb_getenv() {
 	then
 		${GB_BINFILE} -json "${GB_JSONFILE}" -template "TEMPLATE/version/.env.tmpl" -out "${GB_VERDIR}/.env"
 	fi
-	. "${GB_VERDIR}/.env"
+
+	if [ -f "${GB_VERDIR}/.env" ]
+	then
+		. "${GB_VERDIR}/.env"
+	fi
 }
 
 
@@ -222,17 +226,16 @@ gb_create-version() {
 	then
 		return 1
 	fi
-	p_ok "${FUNCNAME[0]}" "Creating version directory for versions: ${GB_VERSIONS}"
+	p_ok "${FUNCNAME[0]}" "Creating/updating version directory for versions: ${GB_VERSIONS}"
 
 	for GB_VERSION in ${GB_VERSIONS}
 	do
-		gb_getenv ${GB_VERSION}
-
-		if [ -d ${GB_VERDIR} ]
+		if [ -d "${GB_BASEDIR}/versions/${GB_VERSION}" ]
 		then
+			gb_getenv ${GB_VERSION}
 			p_info "${FUNCNAME[0]}" "Updating version directory \"${GB_VERSION}\"."
-			${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/version/DockerfileRuntime.tmpl -out "${GB_VERDIR}/DockerfileRuntime"
 			${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/version/.env.tmpl -out "${GB_VERDIR}/.env"
+			${GB_BINFILE} -json ${GB_JSONFILE} -template ./TEMPLATE/version/DockerfileRuntime.tmpl -out "${GB_VERDIR}/DockerfileRuntime"
 			rm -f "${GB_VERDIR}/gearbox.json"
 
 		else

@@ -44,8 +44,8 @@ However, due to the flexability of Gearbox, it can be used outside of this frame
 
 There are three methods:
 
-## Method 1: Using gb-launch
-`gb-launch` is a tool specifically designed to interact with a Gearbox Docker container.
+## Method 1: Using launch
+`launch` is a tool specifically designed to interact with a Gearbox Docker container.
 
 It provides three important functional areas, without any Docker container learning curve:
 - Allows control over Gearbox Docker containers: stop, start, create, remove.
@@ -56,15 +56,18 @@ It also provides a functional SSH daemon for connecting remotely as well as a st
 
 
 ### Setup from GitHub repo
-`gb-launch` is currently in beta testing and is included along with all Gearbox Docker repos.
+`launch` is currently in beta testing and is included along with all Gearbox Docker repos.
 Once out of beta, it will be included within the Gearbox installation package.
 
-For now, simply clone this repository to your local machine.
+For now, simply download the `launch` binaries.
+- [Mac OSX 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Darwin/launch)
+- [Linux 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Linux/launch)
+- [Windows 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Windows/launch)
 
 `git clone https://github.com/gearboxworks/docker-gearbox-base.git`
 
-### Running gb-launch
-There are many ways to call gb-launch, either directly or indirectly.
+### Running launch
+There are many ways to call launch, either directly or indirectly.
 Additionally, all host environment variables will be imported into the container seamlessly.
 This allows a devloper to try multiple versions of software as though they were installed locally.
 
@@ -72,17 +75,17 @@ If a container is missing, it will be downloaded and created. Multiple versions 
 
 Create, and start the gearbox-base Gearbox container.
 
-`./bin/gb-launch -gb-name gearbox-base`
+`./bin/launch -gb-name gearbox-base`
 
 Create, and start the gearbox-base Gearbox container. Run a shell.
 
-`./bin/gb-launch -gb-name gearbox-base -gb-shell`
+`./bin/launch -gb-name gearbox-base -gb-shell`
 
 Create, and start the gearbox-base Gearbox container with version alpine-3.4 and run a shell.
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell`
 
-If gearbox-base is symlinked to `gb-launch`, then you can drop the `-gb-name` flag.
+If gearbox-base is symlinked to `launch`, then you can drop the `-gb-name` flag.
 
 `./bin/gearbox-base`
 
@@ -90,24 +93,24 @@ Running gearbox-base Gearbox container default command. If a container has a def
 
 `./bin/gearbox-base -flag1 -flag2 variable`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -flag1 -flag2 variable`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -flag1 -flag2 variable`
 
 
 Running alternate commands within the gearbox-base Gearbox container.
 
 `./bin/gearbox-base -gb-shell -- ls -l`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ls -l`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ls -l`
 
 `./bin/gearbox-base -gb-shell -- ps -eaf`
 
-`./bin/gb-launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ps -eaf`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ps -eaf`
 
 
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
 To show what ports are exported to the host.
 
-`./bin/gb-launch -gb-name gearbox-base -gb-list`
+`./bin/launch -gb-name gearbox-base -gb-list`
 
 
 ## Method 2: GitHub repo
@@ -175,7 +178,7 @@ shell - Run a shell, (/bin/bash), within a Docker container.
 ### SSH
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
 
-Either use `gb-launch` above or discover the port and SSH directly.
+Either use `launch` above or discover the port and SSH directly.
 
 
 ```

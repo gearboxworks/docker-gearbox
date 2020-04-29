@@ -31,6 +31,9 @@
 		"restart": "--restart no"
 	},
 	"run": {
+		"commands": {
+			"default": ""
+		}
 	},
 	"versions": {
 		"alpine-3.3": {
