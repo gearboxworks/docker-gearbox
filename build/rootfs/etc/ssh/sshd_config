@@ -74,7 +74,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
 #UsePAM no
 
 AllowAgentForwarding no
-#AllowTcpForwarding yes
+AllowTcpForwarding yes
 #GatewayPorts no
 #X11Forwarding no
 #X11DisplayOffset 10
@@ -96,8 +96,8 @@ AcceptEnv *
 #ChrootDirectory none
 #VersionAddendum none
 
-# no default banner path
-#Banner none
+Banner none
+ForceCommand /etc/gearbox/bin/ssh-execute.sh
 
 # override default of no subsystems
 Subsystem	sftp	/usr/lib/ssh/sftp-server
