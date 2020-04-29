@@ -81,9 +81,9 @@ Create, and start the gearbox-base Gearbox container. Run a shell.
 
 `./bin/launch -gb-name gearbox-base -gb-shell`
 
-Create, and start the gearbox-base Gearbox container with version alpine-3.4 and run a shell.
+Create, and start the gearbox-base Gearbox container with version alpine-3.3 and run a shell.
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell`
 
 If gearbox-base is symlinked to `launch`, then you can drop the `-gb-name` flag.
 
@@ -93,18 +93,18 @@ Running gearbox-base Gearbox container default command. If a container has a def
 
 `./bin/gearbox-base -flag1 -flag2 variable`
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -flag1 -flag2 variable`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -flag1 -flag2 variable`
 
 
 Running alternate commands within the gearbox-base Gearbox container.
 
 `./bin/gearbox-base -gb-shell -- ls -l`
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ls -l`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell -- ls -l`
 
 `./bin/gearbox-base -gb-shell -- ps -eaf`
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.4 -gb-shell -- ps -eaf`
+`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell -- ps -eaf`
 
 
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
