@@ -55,16 +55,15 @@ It provides three important functional areas, without any Docker container learn
 It also provides a functional SSH daemon for connecting remotely as well as a standard set of common tools and utilities.
 
 
-### Setup from GitHub repo
+### Download launch
 `launch` is currently in beta testing and is included along with all Gearbox Docker repos.
 Once out of beta, it will be included within the Gearbox installation package.
 
-For now, simply download the `launch` binaries.
+For now, simply download the standalone `launch` binary for your O/S.
 - [Mac OSX 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Darwin/launch)
 - [Linux 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Linux/launch)
 - [Windows 64bit](https://github.com/gearboxworks/docker-template/raw/master/bin/Windows/launch)
 
-`git clone https://github.com/gearboxworks/docker-gearbox-base.git`
 
 ### Running launch
 There are many ways to call launch, either directly or indirectly.
@@ -73,44 +72,41 @@ This allows a devloper to try multiple versions of software as though they were 
 
 If a container is missing, it will be downloaded and created. Multiple versions can co-exist.
 
-Create, and start the gearbox-base Gearbox container.
+Install, create, and start the gearbox-base Gearbox container.
 
-`./bin/launch -gb-name gearbox-base`
+`./launch install gearbox-base`
 
 Create, and start the gearbox-base Gearbox container. Run a shell.
 
-`./bin/launch -gb-name gearbox-base -gb-shell`
+`./launch shell gearbox-base`
 
-Create, and start the gearbox-base Gearbox container with version alpine-3.3 and run a shell.
+Create, and start the gearbox-base Gearbox container with version alpine-3.6 and run a shell.
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell`
+`./launch shell gearbox-base:alpine-3.6`
 
-If gearbox-base is symlinked to `launch`, then you can drop the `-gb-name` flag.
+If gearbox-base is symlinked to `launch`, then the Gearbox container will be determined automatically.
+Symlinks will be created upon installation.
 
-`./bin/gearbox-base`
+`./gearbox-base`
 
 Running gearbox-base Gearbox container default command. If a container has a default interactive command, arguments can be supplied without specifying that command.
 
-`./bin/gearbox-base -flag1 -flag2 variable`
+`./gearbox-base -flag1 -flag2 variable`
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -flag1 -flag2 variable`
+`./launch gearbox-base:alpine-3.6 -flag1 -flag2 variable`
 
 
 Running alternate commands within the gearbox-base Gearbox container.
 
-`./bin/gearbox-base -gb-shell -- ls -l`
+`./launch shell gearbox-base:alpine-3.6 ls -l`
 
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell -- ls -l`
-
-`./bin/gearbox-base -gb-shell -- ps -eaf`
-
-`./bin/launch -gb-name gearbox-base -gb-version alpine-3.3 -gb-shell -- ps -eaf`
+`./launch shell gearbox-base:alpine-3.6 ps -eaf`
 
 
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
 To show what ports are exported to the host.
 
-`./bin/launch -gb-name gearbox-base -gb-list`
+`./launch list gearbox-base`
 
 
 ## Method 2: GitHub repo
