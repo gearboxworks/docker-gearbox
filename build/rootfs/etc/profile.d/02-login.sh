@@ -4,7 +4,6 @@ if [ ! -z "${GEARBOX_PROJECT_DIR}" ]
 then
 	GEARBOX_PROJECT_DIR="/home/gearbox/projects/default"
 fi
-export PATH
 
 if [ "${USER}" == "gearbox" ]
 then
@@ -17,6 +16,10 @@ then
 fi
 
 PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${GEARBOX_PROJECT_DIR}"
+export PATH
+
+PS1="[${GEARBOX_NAME}:${GEARBOX_VERSION}] \w\$ "
+export PS1
 
 if [ "${SHLVL}" == "1" ]
 then
