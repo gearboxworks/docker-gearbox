@@ -80,12 +80,18 @@ Create, and start the gearbox-base Gearbox container. Run a shell.
 
 `./launch shell gearbox-base`
 
-Create, and start the gearbox-base Gearbox container with version alpine-3.6 and run a shell.
+Create, and start the gearbox-base Gearbox container with version alpine-3.10 and run a shell.
 
-`./launch shell gearbox-base:alpine-3.6`
+`./launch shell gearbox-base:alpine-3.10`
 
-If gearbox-base is symlinked to `launch`, then the Gearbox container will be determined automatically.
-Symlinks will be created upon installation.
+`./launch shell gearbox-base:alpine-3.10 ls -l`
+
+`./launch shell gearbox-base:alpine-3.10 ps -eaf`
+
+
+### Available commands
+If gearbox-base is symlinked to `launch`, then the Gearbox container will be determined automatically and the default command will be run.
+All available commands for a Gearbox container will be automatically symlinked upon installation.
 
 `./gearbox-base`
 
@@ -93,18 +99,15 @@ Running gearbox-base Gearbox container default command. If a container has a def
 
 `./gearbox-base -flag1 -flag2 variable`
 
-`./launch gearbox-base:alpine-3.6 -flag1 -flag2 variable`
+`./launch gearbox-base:alpine-3.10 -flag1 -flag2 variable`
+
+Gearbox containers may have multiple executables that can be run. The gearbox-base Gearbox container has the following available commands:
+- The default command will execute `` within the container.
 
 
-Running alternate commands within the gearbox-base Gearbox container.
-
-`./launch shell gearbox-base:alpine-3.6 ls -l`
-
-`./launch shell gearbox-base:alpine-3.6 ps -eaf`
-
-
+### Remote connection
 ssh - All [Gearbox](https://github.com/gearboxworks/) containers have a running SSH daemon. So you can connect remotely.
-To show what ports are exported to the host.
+To show what ports are exported to the host, use the following command.
 
 `./launch list gearbox-base`
 
