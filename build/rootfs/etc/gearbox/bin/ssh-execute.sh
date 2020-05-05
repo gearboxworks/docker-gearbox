@@ -10,19 +10,13 @@ then
 	GEARBOX_PROJECT_DIR="/home/gearbox/projects/default"
 fi
 
-if [ "${USER}" == "gearbox" ]
-then
-	if [ -d "${GEARBOX_PROJECT_DIR}" ]
-	then
-		cd "${GEARBOX_PROJECT_DIR}"
-	else
-		cd /home/gearbox/projects/default
-	fi
-fi
+/etc/gearbox/bin/ssh-mount.sh
 
 if [ -z "${SSH_ORIGINAL_COMMAND}" ]
 then
 	SSH_ORIGINAL_COMMAND="${SHELL} --login -i"
+else
+	. /etc/profile
 fi
 
 SHLVL=1
