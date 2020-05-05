@@ -1,37 +1,25 @@
 #!/bin/bash
 
-GEARBOX_SHELL_DIR="/home/gearbox/projects/default"
+if [ ! -z "${GEARBOX_PROJECT_DIR}" ]
+then
+	GEARBOX_PROJECT_DIR="/home/gearbox/projects/default"
+fi
 
 if [ "${USER}" == "gearbox" ]
 then
-if [ ! -z "${GEARBOX_MOUNT_PATH}" ]
-then
-	if [ -d "${GEARBOX_MOUNT_PATH}" ]
+	if [ -d "${GEARBOX_PROJECT_DIR}" ]
 	then
-		GEARBOX_SHELL_DIR="${GEARBOX_MOUNT_PATH}"
-	fi
-else
-	if [ ! -z "${GEARBOX_PROJECT_DIR}" ]
-	then
-		if [ -d "${GEARBOX_PROJECT_DIR}" ]
-		then
-			GEARBOX_SHELL_DIR="${GEARBOX_PROJECT_DIR}"
-		fi
+		cd "${GEARBOX_PROJECT_DIR}"
 	else
-		GEARBOX_PROJECT_DIR="${GEARBOX_SHELL_DIR}"
+		cd /home/gearbox/projects/default
 	fi
-fi
-cd "${GEARBOX_SHELL_DIR}"
 fi
 
-PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${GEARBOX_SHELL_DIR}"
+PATH="/opt/gearbox/sbin:/opt/gearbox/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${GEARBOX_PROJECT_DIR}"
 export PATH
 
-PS1="[${GEARBOX_NAME}:${GEARBOX_VERSION}] \w \$ "
+PS1="[${GEARBOX_NAME}:${GEARBOX_VERSION}] \w\$ "
 export PS1
-
-HISTFILE="${HOME}/.bash_history"
-export HISTFILE
 
 if [ "${SHLVL}" == "1" ]
 then
