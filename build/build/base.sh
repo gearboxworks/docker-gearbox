@@ -40,6 +40,27 @@ case "${GEARBOX_BASE_VERSION}" in
 
 	"debian-"*)
 		case "${GEARBOX_BASE_VERSION}" in
+			"debian-wheezy")
+				c_info "Update packages."
+				DEBS="bash rsync sudo wget nfs-common ssh fuse sshfs"
+				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+				sed -i '
+					s/^deb http:\/\/deb.debian.org\/debian wheezy-updates/# deb http:\/\/deb.debian.org\/debian wheezy-updates/;
+					s/^deb http:\/\/deb.debian.org\/debian wheezy/deb http:\/\/archive.debian.org\/debian wheezy/;
+					s/^deb http:\/\/security.debian.org\/debian-security/# deb http:\/\/security.debian.org\/debian-security/;
+					' /etc/apt/sources.list
+
+				apt-get update; checkExit
+				apt-get install -y --no-install-recommends ${DEBS}; checkExit
+
+				apt-get install -y apt-utils locales; checkExit
+				cd /
+				wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
+				tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
+				tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
+				rm -rf /s6-overlay-amd64.tar.gz; checkExit
+				;;
+
 			"debian-stretch")
 				c_info "Update packages."
 				DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"

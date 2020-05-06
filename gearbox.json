@@ -108,6 +108,12 @@
 			"ref": "base",
 			"base": "ubuntu:bionic"
 		},
+		"debian-wheezy": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:wheezy-slim"
+		},
 		"debian-stretch": {
 			"majorversion": "",
 			"latest": false,
