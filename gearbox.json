@@ -114,6 +114,12 @@
 			"ref": "base",
 			"base": "debian:wheezy-slim"
 		},
+		"debian-jessie": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:jessie-slim"
+		},
 		"debian-stretch": {
 			"majorversion": "",
 			"latest": false,
