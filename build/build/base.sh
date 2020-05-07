@@ -14,122 +14,22 @@ then
 	fi
 fi
 
+c_ok "Install base O/S packages."
+
 case "${GEARBOX_BASE_VERSION}" in
 	"alpine-"*)
-		case "${GEARBOX_BASE_VERSION}" in
-			"alpine-3.3"|"alpine-3.4"|"alpine-3.5")
-				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh git rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh git rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				;;
-
-			"alpine-3.6"|"alpine-3.7"|"alpine-3.8"|"alpine-3.9"|"alpine-3.10"|"alpine-3.11")
-				# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				;;
-
-			*)
-				# APKS="tini bash openrc nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils ssh-tools sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
-				;;
-		esac
-
-		c_info "Update packages."
-		apk update; checkExit
-		apk add --no-cache ${APKS}; checkExit
+		c_ok "Alpine O/S detected - ${GEARBOX_BASE_VERSION}"
+		/etc/gearbox/build/base-alpine.sh; checkExit
 		;;
 
 	"debian-"*)
-		case "${GEARBOX_BASE_VERSION}" in
-			"debian-wheezy")
-				c_info "Update packages."
-				DEBS="bash rsync sudo wget nfs-common ssh fuse sshfs"
-				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-				SOURCES="$(find /etc/apt/sources.list.d /etc/apt/sources.list -type f)"
-				echo "SOURCES: ${SOURCES}"
-
-				sed -i '
-					s/^deb http:\/\/http.debian.net\/debian wheezy-updates/# deb http:\/\/http.debian.net\/debian wheezy-updates/;
-					s/^deb http:\/\/http.debian.net\/debian wheezy/deb http:\/\/archive.debian.org\/debian wheezy/;
-					s/^deb http:\/\/security.debian.org wheezy/# deb http:\/\/security.debian.org wheezy/;
-
-					s/^deb http:\/\/deb.debian.org\/debian wheezy-updates/# deb http:\/\/deb.debian.org\/debian wheezy-updates/;
-					s/^deb http:\/\/deb.debian.org\/debian wheezy/deb http:\/\/archive.debian.org\/debian wheezy/;
-					s/^deb http:\/\/security.debian.org\/debian-security/# deb http:\/\/security.debian.org\/debian-security/;
-					s/^deb http:\/\/security.debian.org wheezy/# deb http:\/\/security.debian.org wheezy/;
-					' ${SOURCES}
-
-				apt-get update; checkExit
-				apt-get install -y --no-install-recommends ${DEBS}; checkExit
-
-				apt-get install -y apt-utils locales; checkExit
-				cd /
-				wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
-				tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
-				tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
-				rm -rf /s6-overlay-amd64.tar.gz; checkExit
-				;;
-
-			"debian-stretch"|"debian-jessie")
-				c_info "Update packages."
-				DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
-				echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-				apt-get update; checkExit
-				apt-get install -y --no-install-recommends ${DEBS}; checkExit
-
-				apt-get install -y apt-utils locales; checkExit
-				cd /
-				wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
-				tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
-				tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
-				rm -rf /s6-overlay-amd64.tar.gz; checkExit
-				;;
-
-			"debian-"*)
-				c_info "Update packages."
-				DEBS="bash git rsync sudo wget s6 nfs-common ssh fuse libnfs-utils sshfs ssh-tools"
-				apt-get update; checkExit
-				apt-get install -y --no-install-recommends ${DEBS}; checkExit
-
-				# Different path for S6 on later versions of Debian.
-				ls -1 /usr/bin/s6* | xargs -i ln -s {} /bin 2>/dev/null
-				echo ""
-				;;
-			esac
-
-			find /var/lib/apt/lists -type f -delete; checkExit
-
-			if [ ! -d /run/sshd ]
-			then
-				mkdir /run/sshd
-			fi
+		c_ok "Debian O/S detected - ${GEARBOX_BASE_VERSION}"
+		/etc/gearbox/build/base-debian.sh; checkExit
 		;;
 
 	"ubuntu-"*)
-		c_info "Update packages."
-		DEBS="bash git rsync sudo wget nfs-common ssh fuse sshfs"
-		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-		apt-get update; checkExit
-		apt-get install -y --no-install-recommends ${DEBS}; checkExit
-
-		apt-get install -y apt-utils locales; checkExit
-		# apt-get install -y curl tzdata; checkExit
-		# locale-gen en_US.UTF-8; checkExit
-		# curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${ARCH}.tar.gz"; checkExit
-
-		c_info "Install S6."
-		cd /
-		wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
-		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
-		tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
-		rm -rf /s6-overlay-amd64.tar.gz; checkExit
-
-		find /var/lib/apt/lists -type f -delete; checkExit
-
-		if [ ! -d /run/sshd ]
-		then
-			mkdir /run/sshd
-		fi
+		c_ok "Ubuntu O/S detected - ${GEARBOX_BASE_VERSION}"
+		/etc/gearbox/build/base-ubuntu.sh; checkExit
 		;;
 
 	*)
@@ -137,15 +37,6 @@ case "${GEARBOX_BASE_VERSION}" in
 		exit 1
 		;;
 esac
-
-
-## Add env for SSHD
-#env|sort|egrep '^GEARBOX|^HTTP' | awk -F= '{print$1"=\x27"$2"\x27; export "$1}' > /etc/profile.d/00-gearbox.sh
-## Important for passing environment through for SSH.
-#env | awk -F= '
-#$1~/^HOSTNAME$/||$1~/^PWD$/||$1~/^HOME$/||$1~/^SHLVL$/||$1~/^PATH$/||$1~/^_$/||$1~/^SSH/||$1~/^SHELL$/||$1~/^LOGNAME$/{next}
-#{print$1"=\x27"$2"\x27; export "$1}
-#' | sort > /etc/environment
 
 
 GROUP="$(grep ^gearbox /etc/group)"
@@ -191,32 +82,30 @@ then
 	chown -fhR gearbox:gearbox /etc/gearbox/rootfs/home/gearbox; checkExit
 	rsync -HvaxP /etc/gearbox/rootfs/ /; checkExit
 else
-	c_err "Error: /tmp/rootfs does not exist."
+	c_err "Error: /etc/gearbox/rootfs does not exist."
 	exit 1
 fi
+chmod 440 /etc/sudoers.d/gearbox
 
 
 c_info "Generate SSH host keys."
+if [ ! -d /run/sshd ]
+then
+	mkdir -p /run/sshd
+fi
+
+if [ ! -d /var/run/sshd ]
+then
+	mkdir -p /var/run/sshd
+fi
 /usr/bin/ssh-keygen -A
 addgroup fuse 2>/dev/null
 addgroup gearbox fuse 2>/dev/null
 
 
-#c_ok "Installing MailHog client."
-#export GOPATH=/etc/gearbox/gocode
-#if [ ! -d "${GOPATH}" ]
-#then
-#	mkdir -p ${GOPATH}; checkExit
-#fi
-#go get github.com/mailhog/mhsendmail; checkExit
-#find ${GOPATH} | xargs ls -ld
-#du -sh ${GOPATH}
-#mv ${GOPATH}/bin/MailHog /usr/local/bin; checkExit
-#rm -rf ${GOPATH}
-
-
 c_ok "Cleaning up."
 find /usr/local/*bin -type f | xargs chmod 775
+rm -rf /root/tmp
 
 c_ok "Creating env."
 /etc/gearbox/bin/pullenv.sh
