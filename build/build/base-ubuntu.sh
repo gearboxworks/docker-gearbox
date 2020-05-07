@@ -1,4 +1,3 @@
-#!/bin/bash
 
 test -f /etc/gearbox/build/base.env && . /etc/gearbox/build/base.env
 test -f /etc/gearbox/bin/colors.sh && . /etc/gearbox/bin/colors.sh

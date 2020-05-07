@@ -80,12 +80,12 @@
 		},
 		"alpine-3.10": {
 			"majorversion": "",
-			"latest": true,
+			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.10"
 		},
 		"alpine-3.11": {
-			"majorversion": "",
+			"majorversion": "alpine",
 			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.11"
@@ -103,8 +103,8 @@
 			"base": "ubuntu:xenial"
 		},
 		"ubuntu-bionic": {
-			"majorversion": "",
-			"latest": true,
+			"majorversion": "ubuntu",
+			"latest": false,
 			"ref": "base",
 			"base": "ubuntu:bionic"
 		},
@@ -133,8 +133,8 @@
 			"base": "debian:stretch-slim"
 		},
 		"debian-buster": {
-			"majorversion": "",
-			"latest": true,
+			"majorversion": "debian",
+			"latest": false,
 			"ref": "base",
 			"base": "debian:buster-slim"
 		}
