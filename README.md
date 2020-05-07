@@ -25,6 +25,7 @@ GitHub release(latest): ![last-release-date](https://img.shields.io/github/relea
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/alpine-3.9-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/alpine-3.9)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/alpine-3.9)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`alpine-3.9`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/alpine-3.9/DockerfileRuntime))_ |
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/debian-buster-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-buster)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-buster)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`debian-buster`, `latest`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/debian-buster/DockerfileRuntime))_ |
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/debian-jessie-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-jessie)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-jessie)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`debian-jessie`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/debian-jessie/DockerfileRuntime))_ |
+| [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/debian-squeeze-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-squeeze)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-squeeze)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`debian-squeeze`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/debian-squeeze/DockerfileRuntime))_ |
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/debian-stretch-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-stretch)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-stretch)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`debian-stretch`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/debian-stretch/DockerfileRuntime))_ |
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/debian-wheezy-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/debian-wheezy)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/debian-wheezy)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`debian-wheezy`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/debian-wheezy/DockerfileRuntime))_ |
 | [gearbox-base](https://gearboxworks.io/) | ![gearbox-base](https://img.shields.io/badge/ubuntu-bionic-green.svg) | [![Docker Version)](https://img.shields.io/docker/v/gearboxworks/gearbox-base/ubuntu-bionic)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | [![Docker Size](https://img.shields.io/docker/image-size/gearboxworks/gearbox-base/ubuntu-bionic)](https://hub.docker.com/repository/docker/gearboxworks/gearbox-base) | _([`ubuntu-bionic`, `latest`](https://github.com/gearboxworks/docker-gearbox-base/blob/master/versions/ubuntu-bionic/DockerfileRuntime))_ |
@@ -56,6 +57,7 @@ It provides three important functional areas, without any Docker container learn
 
 It also provides a functional SSH daemon for connecting remotely as well as a standard set of common tools and utilities.
 
+Further `launch` documentation can be [found here](https://github.com/gearboxworks/docker-template/blob/master/LAUNCH.md).
 
 ### Download launch
 `launch` is currently in beta testing and is included along with all Gearbox Docker repos.
@@ -82,13 +84,13 @@ Create, and start the gearbox-base Gearbox container. Run a shell.
 
 `./launch shell gearbox-base`
 
-Create, and start the gearbox-base Gearbox container with version alpine-3.3 and run a shell.
+Create, and start the gearbox-base Gearbox container with version ubuntu-xenial and run a shell.
 
-`./launch shell gearbox-base:alpine-3.3`
+`./launch shell gearbox-base:ubuntu-xenial`
 
-`./launch shell gearbox-base:alpine-3.3 ls -l`
+`./launch shell gearbox-base:ubuntu-xenial ls -l`
 
-`./launch shell gearbox-base:alpine-3.3 ps -eaf`
+`./launch shell gearbox-base:ubuntu-xenial ps -eaf`
 
 
 ### Available commands
@@ -101,7 +103,7 @@ Running gearbox-base Gearbox container default command. If a container has a def
 
 `./gearbox-base -flag1 -flag2 variable`
 
-`./launch gearbox-base:alpine-3.3 -flag1 -flag2 variable`
+`./launch gearbox-base:ubuntu-xenial -flag1 -flag2 variable`
 
 Gearbox containers may have multiple executables that can be run. The gearbox-base Gearbox container has the following available commands:
 - The default command will execute `` within the container.

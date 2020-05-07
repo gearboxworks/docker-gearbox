@@ -108,6 +108,12 @@
 			"ref": "base",
 			"base": "ubuntu:bionic"
 		},
+		"debian-squeeze": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:squeeze"
+		},
 		"debian-wheezy": {
 			"majorversion": "",
 			"latest": false,
