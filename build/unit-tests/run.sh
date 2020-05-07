@@ -10,14 +10,17 @@ do
 		continue
 	fi
 
+	echo -n "0" > /tmp/EXITCODE
 	bash -l ${CMD}
 
-	RETURN="$?"
+	RETURN="$(cat /tmp/EXITCODE)"
 	if [ "$RETURN" != "0" ]
 	then
 		EXIT="$RETURN"
 		echo "RETURN:${RETURN}"
 	fi
 done
+
+rm -f /tmp/EXITCODE
 
 exit ${EXIT}
