@@ -1,8 +1,9 @@
 versions/*/logs/*.log
-bin/Darwin/.-*
-bin/Linux/.-*
-bin/Windows/.-*
+logs*zip
 .*.swp
 *.OLD
 docker-template
 docker-template.tgz
+bin/Darwin/.-*
+bin/Linux/.-*
+bin/Windows/.-*

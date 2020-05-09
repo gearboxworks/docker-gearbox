@@ -270,25 +270,13 @@ gb_clean() {
 		rm -f ${GB_VERDIR}/logs/*.log
 
 
-		gb_checkContainer ${GB_CONTAINERVERSION}
-		case ${STATE} in
-			'STARTED')
-				p_info "${GB_CONTAINERVERSION}" "Removing container, (present and running)."
-				docker container rm -f ${GB_CONTAINERVERSION}
-				;;
-			'STOPPED')
-				p_info "${GB_CONTAINERVERSION}" "Removing container, (present and shutdown)."
-				docker container rm -f ${GB_CONTAINERVERSION}
-				;;
-			'MISSING')
-				p_warn "${GB_CONTAINERVERSION}" "Container already removed."
-				;;
-			*)
-				p_err "${GB_CONTAINERVERSION}" "Unknown state."
-				EXIT="1"
-				continue
-				;;
-		esac
+		${LAUNCHBIN} uninstall "${GB_NAME}:${GB_VERSION}"
+		RETURN="$?"
+		if [ "${RETURN}" != "0" ]
+		then
+			p_err "${FUNCNAME[0]}" "Error exit code: ${RETURN}"
+			EXIT="1"
+		fi
 
 
 		gb_checkImage ${GB_IMAGEMAJORVERSION}
@@ -389,43 +377,6 @@ gb_build() {
 		then
 			docker tag ${GB_IMAGENAME}:${GB_VERSION} ${GB_IMAGENAME}:latest
 		fi
-	done
-
-	return ${EXIT}
-}
-
-
-################################################################################
-gb_create() {
-	if _getVersions $@
-	then
-		return 1
-	fi
-	p_ok "${FUNCNAME[0]}" "#### Creating container for versions: ${GB_VERSIONS}"
-
-	EXIT="0"
-	for GB_VERSION in ${GB_VERSIONS}
-	do
-		gb_getenv ${GB_VERSION}
-
-		gb_checkContainer ${GB_CONTAINERVERSION}
-		case ${STATE} in
-			'STARTED')
-				p_info "${GB_IMAGEVERSION}" "Container already exists and is started."
-				;;
-			'STOPPED')
-				p_info "${GB_IMAGEVERSION}" "Container already exists and is stopped."
-				;;
-			'MISSING')
-				p_info "${GB_IMAGEVERSION}" "Creating container."
-				docker create --name ${GB_CONTAINERVERSION} ${GB_NETWORK} -P ${GB_VOLUMES} ${GB_IMAGEVERSION}
-				;;
-			*)
-				p_err "${GB_IMAGEVERSION}" "Unknown state."
-				EXIT="1"
-				continue
-				;;
-		esac
 	done
 
 	return ${EXIT}
@@ -579,8 +530,12 @@ gb_dockerhub() {
 
 		p_info "${GB_IMAGEVERSION}" "Pushing image to DockerHub."
 		docker push ${GB_IMAGEVERSION}
-		p_info "${GB_IMAGEMAJORVERSION}" "Pushing image to DockerHub."
-		docker push ${GB_IMAGEMAJORVERSION}
+
+		if [ "${GB_IMAGEMAJORVERSION}" != "" ]
+		then
+			p_info "${GB_IMAGEMAJORVERSION}" "Pushing image to DockerHub."
+			docker push ${GB_IMAGEMAJORVERSION}
+		fi
 
 		if [ "${GB_LATEST}" == "true" ]
 		then
@@ -589,6 +544,10 @@ gb_dockerhub() {
 		fi
 	done
 
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Push FAILED for versions: ${GB_VERSIONS}"
+	fi
 	return ${EXIT}
 }
 
@@ -639,13 +598,50 @@ gb_release() {
 	EXIT="0"
 	for GB_VERSION in ${GB_VERSIONS}
 	do
-		gb_clean ${GB_VERSION} && \
-		gb_build ${GB_VERSION} && \
-		gb_test ${GB_VERSION} && \
+		p_ok "${FUNCNAME[0]}" "#### Build and release version ${GB_VERSION}"
+
+		gb_clean ${GB_VERSION}
+
+		gb_build ${GB_VERSION}
+		RETURN="$?"
+		if [ "${RETURN}" != "0" ]
+		then
+			p_err "${FUNCNAME[0]}" "Error exit code: ${RETURN}"
+			EXIT="1"
+			continue
+		fi
+
+		# Just after a build, the image won't be visible for a short while.
+		sleep 2
+
+		# gb_test ${GB_VERSION}
+		${LAUNCHBIN} test "${GB_NAME}:${GB_VERSION}"
+		RETURN="$?"
+		if [ "${RETURN}" != "0" ]
+		then
+			p_err "${FUNCNAME[0]}" "Error exit code: ${RETURN}"
+			EXIT="1"
+			gb_clean ${GB_VERSION}
+			continue
+		fi
+
 		gb_dockerhub ${GB_VERSION}
+		RETURN="$?"
+		if [ "${RETURN}" != "0" ]
+		then
+			p_err "${FUNCNAME[0]}" "Error exit code: ${RETURN}"
+			gb_clean ${GB_VERSION}
+			EXIT="1"
+		fi
+
+		gb_clean ${GB_VERSION}
 	done
 
-	return 0
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Release FAILED for versions: ${GB_VERSIONS}"
+	fi
+	return ${EXIT}
 }
 
 
@@ -670,7 +666,7 @@ gb_rm() {
 		fi
 	done
 
-	return 0
+	return ${EXIT}
 }
 
 
@@ -695,7 +691,11 @@ gb_shell() {
 		fi
 	done
 
-	return 0
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Shell FAILED for versions: ${GB_VERSIONS}"
+	fi
+	return ${EXIT}
 }
 
 
@@ -714,20 +714,21 @@ gb_bash() {
 
 		${LAUNCHBIN} start "${GB_NAME}:${GB_VERSION}"
 		RETURN="$?"
+		if [ "${RETURN}" != "0" ]
+		then
+			EXIT="1"
+			p_err "${GB_CONTAINERVERSION}" "Failed to start."
+			continue
+		fi
 
-		gb_checkContainer ${GB_CONTAINERVERSION}
-		case ${STATE} in
-			'STARTED')
-				p_info "${GB_CONTAINERVERSION}" "Entering container."
-				docker exec -i -t ${GB_CONTAINERVERSION} /bin/bash -l
-				;;
-			*)
-				p_err "${GB_CONTAINERVERSION}" "Unknown state."
-				return 1
-				;;
-		esac
+		p_info "${GB_CONTAINERVERSION}" "Entering container."
+		docker exec -i -t ${GB_CONTAINERVERSION} /bin/bash -l
 	done
 
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Shell FAILED for versions: ${GB_VERSIONS}"
+	fi
 	return 0
 }
 
@@ -753,6 +754,10 @@ gb_start() {
 		fi
 	done
 
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Start FAILED for versions: ${GB_VERSIONS}"
+	fi
 	return ${EXIT}
 }
 
@@ -778,6 +783,10 @@ gb_stop() {
 		fi
 	done
 
+	if [ "${EXIT}" != "0" ]
+	then
+		p_err "${FUNCNAME[0]}" "Stop FAILED for versions: ${GB_VERSIONS}"
+	fi
 	return ${EXIT}
 }
 
