@@ -89,7 +89,7 @@
 			"base": "alpine:3.10"
 		},
 		"alpine-3.11": {
-			"majorversion": "alpine",
+			"majorversion": "",
 			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.11"
@@ -101,7 +101,7 @@
 			"base": "alpine:3.12"
 		},
 		"alpine-3.13": {
-			"majorversion": "alpine",
+			"majorversion": "",
 			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.13"
@@ -155,7 +155,7 @@
 			"base": "debian:buster-slim"
 		},
 		"debian-bullseye": {
-			"majorversion": "debian",
+			"majorversion": "",
 			"latest": false,
 			"ref": "base",
 			"base": "debian:bullseye-slim"
