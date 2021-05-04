@@ -109,7 +109,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		rm -rf /s6-overlay-amd64.tar.gz /etc/gearbox/rootfs/root/tmp; checkExit
 		;;
 
-	"debian-buster"|"debian-stretch"|"debian-jessie")
+	"debian-stretch"|"debian-jessie")
 		c_info "Update packages."
 		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
@@ -118,6 +118,22 @@ case "${GEARBOX_BASE_VERSION}" in
 		apt-get install -y --force-yes --no-install-recommends ${DEBS}; checkExit
 
 		apt-get install -y --force-yes apt-utils locales; checkExit
+		cd /
+		wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
+		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
+		tar -xzf /s6-overlay-amd64.tar.gz -C /usr ./bin; checkExit
+		rm -rf /s6-overlay-amd64.tar.gz /etc/gearbox/rootfs/root/tmp; checkExit
+		;;
+
+	"debian-buster"|"debian-bullseye")
+		c_info "Update packages."
+		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+		DEBS="bash git rsync sudo wget nfs-common ssh fuse3 sshfs"
+		apt-get update; checkExit
+		apt-get install -y --assume-yes --no-install-recommends ${DEBS}; checkExit
+
+		apt-get install -y --assume-yes apt-utils locales; checkExit
 		cd /
 		wget -nv --no-check-certificate "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-amd64.tar.gz"; checkExit
 		tar -xzf /s6-overlay-amd64.tar.gz -C /; checkExit
