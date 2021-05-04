@@ -4,16 +4,17 @@
 		"state": "production",
 		"organization": "gearboxworks",
 		"name": "gearbox-base",
+		"label": "Gearbox base",
 		"maintainer": "Gearbox Team <team@gearbox.works>",
 		"class": "system",
 		"refurl": "https://gearboxworks.io/"
 	},
 	"build": {
 		"base": true,
-		"ports": [
-			"22",
-			"9970"
-		],
+		"ports": {
+			"ssh":"22",
+			"gearbox":"9970"
+		},
 		"run": "",
 		"args": "",
 		"env": {
@@ -30,6 +31,9 @@
 		"restart": "--restart no"
 	},
 	"run": {
+		"commands": {
+			"default": ""
+		}
 	},
 	"versions": {
 		"alpine-3.3": {
@@ -76,12 +80,12 @@
 		},
 		"alpine-3.10": {
 			"majorversion": "",
-			"latest": true,
+			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.10"
 		},
 		"alpine-3.11": {
-			"majorversion": "",
+			"majorversion": "alpine",
 			"latest": false,
 			"ref": "base",
 			"base": "alpine:3.11"
@@ -99,10 +103,28 @@
 			"base": "ubuntu:xenial"
 		},
 		"ubuntu-bionic": {
-			"majorversion": "",
-			"latest": true,
+			"majorversion": "ubuntu",
+			"latest": false,
 			"ref": "base",
 			"base": "ubuntu:bionic"
+		},
+		"debian-squeeze": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:squeeze"
+		},
+		"debian-wheezy": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:wheezy-slim"
+		},
+		"debian-jessie": {
+			"majorversion": "",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:jessie-slim"
 		},
 		"debian-stretch": {
 			"majorversion": "",
@@ -111,8 +133,8 @@
 			"base": "debian:stretch-slim"
 		},
 		"debian-buster": {
-			"majorversion": "",
-			"latest": true,
+			"majorversion": "debian",
+			"latest": false,
 			"ref": "base",
 			"base": "debian:buster-slim"
 		}

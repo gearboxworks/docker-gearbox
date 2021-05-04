@@ -109,7 +109,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		rm -rf /s6-overlay-amd64.tar.gz /etc/gearbox/rootfs/root/tmp; checkExit
 		;;
 
-	"debian-stretch"|"debian-jessie")
+	"debian-buster"|"debian-stretch"|"debian-jessie")
 		c_info "Update packages."
 		echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 

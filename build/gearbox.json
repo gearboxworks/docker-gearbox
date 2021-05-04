@@ -5,6 +5,10 @@
 		"organization": "gearboxworks",
 		"name": "gearbox-base",
 		"label": "Gearbox base",
+		"info": "PHP",
+		"description": [
+			"PHP is a popular general-purpose scripting language that is especially suited to web development."
+		],
 		"maintainer": "Gearbox Team <team@gearbox.works>",
 		"class": "system",
 		"refurl": "https://gearboxworks.io/"
@@ -90,6 +94,18 @@
 			"ref": "base",
 			"base": "alpine:3.11"
 		},
+		"alpine-3.12": {
+			"majorversion": "alpine",
+			"latest": false,
+			"ref": "base",
+			"base": "alpine:3.12"
+		},
+		"alpine-3.13": {
+			"majorversion": "alpine",
+			"latest": false,
+			"ref": "base",
+			"base": "alpine:3.13"
+		},
 		"ubuntu-trusty": {
 			"majorversion": "",
 			"latest": false,
@@ -137,6 +153,12 @@
 			"latest": false,
 			"ref": "base",
 			"base": "debian:buster-slim"
+		},
+		"debian-bullseye": {
+			"majorversion": "debian",
+			"latest": false,
+			"ref": "base",
+			"base": "debian:bullseye-slim"
 		}
 	}
 }

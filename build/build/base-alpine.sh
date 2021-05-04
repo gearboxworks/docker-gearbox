@@ -8,7 +8,7 @@ case "${GEARBOX_BASE_VERSION}" in
 		APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh git rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
 		;;
 
-	"alpine-3.6"|"alpine-3.7"|"alpine-3.8"|"alpine-3.9"|"alpine-3.10"|"alpine-3.11")
+	"alpine-3.6"|"alpine-3.7"|"alpine-3.8"|"alpine-3.9"|"alpine-3.10"|"alpine-3.11"|"alpine-3.12"|"alpine-3.13")
 		# APKS="tini bash openrc nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
 		APKS="s6 s6-rc s6-portable-utils s6-linux-utils bash nfs-utils sshfs openssh-client openssh-server openssh git shadow rsync sudo ncurses-terminfo-base ncurses-terminfo ncurses"
 		;;
